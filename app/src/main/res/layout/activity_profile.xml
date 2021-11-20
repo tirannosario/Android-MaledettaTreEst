@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileActivity">
+    <ImageView
+        android:id="@+id/biopic"
+        android:layout_width="194dp"
+        android:layout_height="194dp"
+        android:layout_marginTop="80dp"
+        android:contentDescription="biopic"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/cat"
+        tools:ignore="ImageContrastCheck" />
+
+    <Button
+        android:id="@+id/btn_change_pic"
+        style="@style/MyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/txt_btn_change_pic"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:icon="@drawable/ic_edit"
+        app:iconTint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/biopic"
+        tools:ignore="TextContrastCheck"
+        tools:text="Cambia Foto" />
+
+    <EditText
+        android:id="@+id/txt_change_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:ems="10"
+        android:fontFamily="@font/poppins_medium"
+        android:hint="username1998"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_change_pic" />
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="129dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/myPurple"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Salva"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btn_dismiss"
+        android:layout_width="129dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="#7A6D6D"
+        android:fontFamily="@font/poppins_medium"
+        android:onClick="dismissBtnClicked"
+        android:text="Annulla"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

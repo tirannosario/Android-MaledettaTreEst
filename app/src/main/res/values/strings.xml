@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Maledetta_TreEst</string>
+    <string name="back_text">Scegli altre Bacheche</string>
+    <string name="text_from">Partenza</string>
+    <string name="text_to">Arrivo</string>
+    <string name="txt_info_direction">DETTAGLI TRATTA</string>
+    <string name="txt_btn_change_pic">Button</string>
 </resources>
