@@ -1,5 +1,6 @@
 package com.example.maledetta_treest;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,6 +13,8 @@ public class ShowLines extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_lines);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
     }
 
     public void userBtnClicked(View view){

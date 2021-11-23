@@ -41,4 +41,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }
+
+    public void btnBackClicked(View view){
+        Intent intent = new Intent(this, ShowLines.class);
+        startActivity(intent);
+        this.finish();
+    }
 }
