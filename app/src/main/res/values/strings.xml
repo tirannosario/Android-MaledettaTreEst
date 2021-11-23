@@ -5,4 +5,6 @@
     <string name="text_to">Arrivo</string>
     <string name="txt_info_direction">DETTAGLI TRATTA</string>
     <string name="txt_btn_change_pic">Button</string>
+    <string name="text_label_from_follow_users">Da Utenti Seguiti</string>
+    <string name="text_labal_from_all_users">Da Tutti</string>
 </resources>
