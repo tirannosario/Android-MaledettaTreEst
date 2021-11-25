@@ -29,7 +29,6 @@ public class ShowLines extends AppCompatActivity {
         InternetCommunication internetCommunication = new InternetCommunication(this);
         internetCommunication.getLines(
                 response -> {
-                    Log.d("Debug", response.toString());
                     MyModel.getSingleton().addLinesFromJSON((JSONObject) response);
                     myAdapter.notifyDataSetChanged();
                 },
