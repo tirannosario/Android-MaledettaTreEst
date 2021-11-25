@@ -36,19 +36,23 @@ public class MainActivity extends AppCompatActivity {
                             SharedPreferences.Editor editor = settings.edit();
                             editor.putString("sid", newSid);
                             editor.commit();
+                            // lo salvo anche nel model, così da poterlo prendere in maniera semplice
+                            MyModel.getSingleton().setSid(newSid);
                             Log.d("Debug", "nuovo sid: " + newSid);
+                            // una volta che ho il SID, passo all'altra activity
+                            Intent intent = new Intent(this, ShowLines.class);
+                            startActivity(intent);
+                            this.finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     },
-                    error -> Log.d("Volley", "Error: " + error.toString())
+                    error -> Log.d("Debug", "Error: " + error.toString())
             );
-            Intent intent = new Intent(this, ShowLines.class);
-            startActivity(intent);
-            this.finish();
         }
         else{
             Log.d("Debug", "sid salvato: " + sid);
+            MyModel.getSingleton().setSid(sid);
             String direction = settings.getString("direction", "null");
             // controllo se ho già scelto una direzione l'ultima volta, altrimenti mostro la schermata delle Linee
             if(direction.equals("null")){

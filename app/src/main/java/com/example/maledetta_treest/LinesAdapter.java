@@ -32,6 +32,6 @@ public class LinesAdapter extends RecyclerView.Adapter<LineViewHolder> {
 
     @Override
     public int getItemCount() {
-        return MyModel.getSingleton().getSize();
+        return MyModel.getSingleton().getLinesSize();
     }
 }

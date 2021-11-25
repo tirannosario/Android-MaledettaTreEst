@@ -5,13 +5,15 @@ import java.util.List;
 public class Line {
     private List<Station> stationList;
     private String name; // prima e ultima stazione
+    private String direction1, direction2;
     private String did1, did2;
 
-    public Line(List<Station> stationList) {
-        this.stationList = stationList;
-        //crea il nome della linea, con prima e ultima fermata
-        //TODO fare controllo se l'array ho tot array, per evitare IndexBoundException
-        this.name = this.stationList.get(0).sname + " - " + this.stationList.get(this.stationList.size()-1).sname;
+    public Line(String direction1, String direction2, String did1, String did2) {
+        this.direction1 = direction1;
+        this.direction2 = direction2;
+        this.did1 = did1;
+        this.did2 = did2;
+        this.name = direction1 + " - " + direction2;
     }
 
     public String getName() {
@@ -19,11 +21,11 @@ public class Line {
     }
 
     public String getDirection1(){
-        return this.stationList.get(0).sname;
+        return this.direction1;
     }
 
     public String getDirection2(){
-        return this.stationList.get(this.stationList.size()-1).sname;
+        return this.direction2;
     }
 
 
