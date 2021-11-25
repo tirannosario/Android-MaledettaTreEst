@@ -10,6 +10,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class MainActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "MainActivity";
 
@@ -20,20 +23,41 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        // controllo se è la prima volta che avvio l'app
+        // controllo se è la prima volta che avvio l'app (ovvero se non ho il SID)
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        boolean firstTime = settings.getBoolean("firstTime", true);
-        if(firstTime) {
-            // da fare quando si sceglie una tratta (da quel momento in poi all'avvio dell'app verrà mostrata quella tratta (ovviamente può essere cambiata)
-            /*SharedPreferences.Editor editor = settings.edit();
-            editor.putBoolean("firstTime", false);
-            editor.commit();*/
+        String sid = settings.getString("sid", "null");
+        if(sid.equals("null")) {
+            //la prima volta che entro nell'app, mi registro al sistema e mostro la schermata delle Linee
+            InternetCommunication internetCommunication = new InternetCommunication(this);
+            internetCommunication.register(
+                    response -> {
+                        try {
+                            String newSid = ((JSONObject)response).getString("sid");
+                            SharedPreferences.Editor editor = settings.edit();
+                            editor.putString("sid", newSid);
+                            editor.commit();
+                            Log.d("Debug", "nuovo sid: " + newSid);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    },
+                    error -> Log.d("Volley", "Error: " + error.toString())
+            );
             Intent intent = new Intent(this, ShowLines.class);
             startActivity(intent);
             this.finish();
         }
         else{
-
+            Log.d("Debug", "sid salvato: " + sid);
+            String direction = settings.getString("direction", "null");
+            // controllo se ho già scelto una direzione l'ultima volta, altrimenti mostro la schermata delle Linee
+            if(direction.equals("null")){
+                Intent intent = new Intent(this, ShowLines.class);
+                startActivity(intent);
+                this.finish();
+            }
+            else{
+            }
         }
     }
 
