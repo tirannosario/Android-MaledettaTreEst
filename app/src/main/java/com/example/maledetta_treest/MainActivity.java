@@ -2,6 +2,8 @@ package com.example.maledetta_treest;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -62,6 +64,14 @@ public class MainActivity extends AppCompatActivity {
                 this.finish();
             }
             else{
+                RecyclerView recyclerViewFollow = findViewById(R.id.recycleViewPostFollow);
+                recyclerViewFollow.setLayoutManager(new LinearLayoutManager(this));
+                PostsFollowAdapter postsFollowAdapter = new PostsFollowAdapter(this);
+                recyclerViewFollow.setAdapter(postsFollowAdapter);
+
+                //TODO fare lo stesso per i post di tutti gli utenti
+
+
                 Log.d("Debug", "Questa è la bacheca con did: " + did);
                 InternetCommunication internetCommunication = new InternetCommunication(this);
                 // richiedo le stazione così da poter sapere partenza-arrivo della direzione
@@ -80,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 internetCommunication.getPosts(
                         response -> {
                             MyModel.getSingleton().initPostsFromJSON((JSONObject) response);
+                            postsFollowAdapter.notifyDataSetChanged();
                         },
                         error -> Log.d("Debug", "Error: " + error.toString()),
                         did

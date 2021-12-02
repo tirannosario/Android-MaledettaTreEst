@@ -18,7 +18,8 @@ public class MyModel {
 
     public MyModel() {
         this.linesList = new ArrayList<>();
-//        createFakeLines();
+        this.stationList = new ArrayList<>();
+        this.postList = new ArrayList<>();
     }
 
     public static synchronized MyModel getSingleton() {
@@ -150,5 +151,13 @@ public class MyModel {
         if(this.stationList.size() >= 2)
             return this.stationList.get(this.stationList.size()-1).getSname();
         return "";
+    }
+
+    public synchronized Post getPost(int i){
+        return this.postList.get(i);
+    }
+
+    public synchronized int getPostsSize(){
+        return this.postList.size();
     }
 }
