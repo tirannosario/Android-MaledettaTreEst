@@ -73,8 +73,17 @@ public class MainActivity extends AppCompatActivity {
                             txtDeparture.setText(MyModel.getSingleton().getFirstStation());
                             txtArrival.setText(MyModel.getSingleton().getLastStation());
                         },
-                        error -> Log.d("Debug", "Error: " + error.toString())
-                ,did);
+                        error -> Log.d("Debug", "Error: " + error.toString()),
+                        did
+                );
+
+                internetCommunication.getPosts(
+                        response -> {
+                            MyModel.getSingleton().initPostsFromJSON((JSONObject) response);
+                        },
+                        error -> Log.d("Debug", "Error: " + error.toString()),
+                        did
+                );
             }
         }
     }

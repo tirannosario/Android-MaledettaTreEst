@@ -63,7 +63,26 @@ public class InternetCommunication {
                 listener,
                 errorListener
         );
-        Log.d("Debug", "Faccio la getStations");
+        Log.d("Debug", "Faccio la getStations di " + did);
+        queue.add(request);
+    }
+
+    //TODO refactor di tutte le getQualcosa
+    public void getPosts(Response.Listener listener, Response.ErrorListener errorListener, String did){
+        final JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("sid", MyModel.getSingleton().getSid());
+            jsonBody.put("did", did);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest request = new JsonObjectRequest(
+                baseUrl+"getPosts.php",
+                jsonBody,
+                listener,
+                errorListener
+        );
+        Log.d("Debug", "Faccio la getPosts di " + did);
         queue.add(request);
     }
 }

@@ -14,6 +14,7 @@ public class MyModel {
     private List<Line> linesList;
     private String sid;
     private List<Station> stationList; // verranno sovrascritte ad ogni cambio di direzione
+    private List<Post> postList; // verranno sovrascritti ad ogni cambio di bacheca (direzione)
 
     public MyModel() {
         this.linesList = new ArrayList<>();
@@ -56,8 +57,8 @@ public class MyModel {
                 this.stationList.add(new Station(
                         station.getString("sname"),
                         station.getString("lat"),
-                        station.getString("lon"))
-                );
+                        station.getString("lon")
+                ));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -65,6 +66,32 @@ public class MyModel {
 /*        for (Station s: this.stationList) {
             Log.d("Debug", "Station: " + s.getSname() + ", " + s.getLat() + ", " + s.getLon());
         }*/
+    }
+
+    //TODO refactor di tutte le init from JSON
+    public synchronized void initPostsFromJSON(JSONObject stations){
+        try {
+            this.postList = new ArrayList<>();
+            JSONArray postsJSON = stations.getJSONArray("posts");
+            for(int i=0; i<postsJSON.length(); i++){
+                JSONObject post = (JSONObject) postsJSON.get(i);
+                this.postList.add(new Post(
+                        Integer.parseInt(post.getString("delay")),
+                        Integer.parseInt(post.getString("status")),
+                        post.getString("comment"),
+                        post.getString("followingAuthor"),
+                        post.getString("datetime"),
+                        post.getString("authorName"),
+                        post.getString("author"),
+                        Integer.parseInt(post.getString("pversion"))
+                ));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        for (Post s: this.postList) {
+            Log.d("Debug", s.toString());
+        }
     }
 
     public synchronized void addLinesFromJSON(JSONObject lines){
