@@ -25,11 +25,10 @@ public class ShowLines extends AppCompatActivity {
         LinesAdapter myAdapter = new LinesAdapter(this);
         recyclerView.setAdapter(myAdapter);
 
-        //TODO PROBLEMA: se OnCreate viene richiamato, si raddoppiano le stesse Linee
         InternetCommunication internetCommunication = new InternetCommunication(this);
         internetCommunication.getLines(
                 response -> {
-                    MyModel.getSingleton().addLinesFromJSON((JSONObject) response);
+                    MyModel.getSingleton().initLinesFromJSON((JSONObject) response);
                     myAdapter.notifyDataSetChanged();
                 },
                 error ->  Log.d("Debug", "Error: " + error.toString())

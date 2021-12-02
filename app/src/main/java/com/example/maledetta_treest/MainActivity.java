@@ -14,7 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String PREFS_NAME = "MainActivity";
+    private static final String PREFS_NAME = "SharedPreferences";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +53,15 @@ public class MainActivity extends AppCompatActivity {
         else{
             Log.d("Debug", "sid salvato: " + sid);
             MyModel.getSingleton().setSid(sid);
-            String direction = settings.getString("direction", "null");
+            String did = settings.getString("direction", "null");
             // controllo se ho già scelto una direzione l'ultima volta, altrimenti mostro la schermata delle Linee
-            if(direction.equals("null")){
+            if(did.equals("null")){
                 Intent intent = new Intent(this, ShowLines.class);
                 startActivity(intent);
                 this.finish();
             }
             else{
+                Log.d("Debug", "Questa è la bacheca con did: " + did);
             }
         }
     }

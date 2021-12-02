@@ -28,5 +28,11 @@ public class Line {
         return this.direction2;
     }
 
+    public String getDid1() {
+        return did1;
+    }
 
+    public String getDid2() {
+        return did2;
+    }
 }

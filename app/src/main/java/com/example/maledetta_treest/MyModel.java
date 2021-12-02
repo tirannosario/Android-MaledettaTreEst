@@ -25,6 +25,27 @@ public class MyModel {
         return instance;
     }
 
+    public synchronized void initLinesFromJSON(JSONObject lines){
+        try {
+            // ripulisco tutta la lista prima
+            this.linesList = new ArrayList<>();
+            JSONArray linesJSON = lines.getJSONArray("lines");
+            for(int i=0; i<linesJSON.length(); i++){
+                JSONObject line = (JSONObject) linesJSON.get(i);
+                JSONObject terminus1 = line.getJSONObject("terminus1");
+                JSONObject terminus2 = line.getJSONObject("terminus2");
+                this.linesList.add(new Line(
+                        terminus1.getString("sname"),
+                        terminus2.getString("sname"),
+                        terminus1.getString("did"),
+                        terminus2.getString("did")));
+
+            }
+        } catch (JSONException e) {
+            e.getStackTrace();
+        }
+    }
+
     public synchronized void addLinesFromJSON(JSONObject lines){
         try {
             JSONArray linesJSON = lines.getJSONArray("lines");
