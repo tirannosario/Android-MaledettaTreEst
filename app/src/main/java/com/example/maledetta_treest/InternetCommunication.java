@@ -48,4 +48,6 @@ public class InternetCommunication {
         Log.d("Debug", "Faccio la getLines");
         queue.add(request);
     }
+
+//    public void getPosts
 }

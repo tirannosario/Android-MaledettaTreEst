@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
             }
             else{
                 Log.d("Debug", "Questa è la bacheca con did: " + did);
+                InternetCommunication internetCommunication = new InternetCommunication(this);
+                //TODO fare richiesta e gestire risposta
             }
         }
     }

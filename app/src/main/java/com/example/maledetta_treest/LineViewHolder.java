@@ -37,21 +37,22 @@ public class LineViewHolder extends RecyclerView.ViewHolder {
 
         btnDirection1.setOnClickListener(view -> {
             Log.d("Debug", "Andrò alla bacheca con DID :" + line.getDid1());
-            openBoard(line.getDid1());
+            openBoard(line.getDid1(), line.getDid2());
 
         });
         btnDirection2.setOnClickListener(view -> {
             Log.d("Debug", "Andrò alla bacheca con DID :" + line.getDid2());
-            openBoard(line.getDid2());
+            openBoard(line.getDid2(), line.getDid1());
         });
     }
 
-    private void openBoard(String did){
+    private void openBoard(String did1, String did2){
         // non passo il DID tramite intent, poichè uso le SharedPreferences, visto che il DID sarà un dato che manterrò in memoria
         Intent intent = new Intent(context, MainActivity.class);
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putString("direction", did);
+        editor.putString("direction", did1);
+        editor.putString("inverseDirection", did2); //mi salvo anche il did inverso, così da saperlo subito quando faccio l'inversione della direzione direttamente dalla bacheca
         editor.commit();
         context.startActivity(intent);
         ((Activity)context).finish();
