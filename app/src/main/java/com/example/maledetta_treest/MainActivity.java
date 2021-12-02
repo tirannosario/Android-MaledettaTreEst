@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,7 +64,17 @@ public class MainActivity extends AppCompatActivity {
             else{
                 Log.d("Debug", "Questa è la bacheca con did: " + did);
                 InternetCommunication internetCommunication = new InternetCommunication(this);
-                //TODO fare richiesta e gestire risposta
+                // richiedo le stazione così da poter sapere partenza-arrivo della direzione
+                internetCommunication.getStations(
+                        response -> {
+                            MyModel.getSingleton().initStationsFromJSON((JSONObject) response);
+                            TextView txtDeparture = findViewById(R.id.txt_departure_station);
+                            TextView txtArrival = findViewById(R.id.txt_arrival_station);
+                            txtDeparture.setText(MyModel.getSingleton().getFirstStation());
+                            txtArrival.setText(MyModel.getSingleton().getLastStation());
+                        },
+                        error -> Log.d("Debug", "Error: " + error.toString())
+                ,did);
             }
         }
     }

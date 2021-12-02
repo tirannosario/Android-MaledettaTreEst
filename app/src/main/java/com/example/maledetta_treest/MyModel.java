@@ -13,6 +13,7 @@ public class MyModel {
     private static MyModel instance = null;
     private List<Line> linesList;
     private String sid;
+    private List<Station> stationList; // verranno sovrascritte ad ogni cambio di direzione
 
     public MyModel() {
         this.linesList = new ArrayList<>();
@@ -44,6 +45,26 @@ public class MyModel {
         } catch (JSONException e) {
             e.getStackTrace();
         }
+    }
+
+    public synchronized void initStationsFromJSON(JSONObject stations){
+        try {
+            this.stationList = new ArrayList<>();
+            JSONArray stationsJSON = stations.getJSONArray("stations");
+            for(int i=0; i<stationsJSON.length(); i++){
+                JSONObject station = (JSONObject) stationsJSON.get(i);
+                this.stationList.add(new Station(
+                        station.getString("sname"),
+                        station.getString("lat"),
+                        station.getString("lon"))
+                );
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+/*        for (Station s: this.stationList) {
+            Log.d("Debug", "Station: " + s.getSname() + ", " + s.getLat() + ", " + s.getLon());
+        }*/
     }
 
     public synchronized void addLinesFromJSON(JSONObject lines){
@@ -90,5 +111,17 @@ public class MyModel {
     }
     public synchronized String getSid() {
         return sid;
+    }
+
+    public synchronized String getFirstStation(){
+        if(this.stationList.size() >= 2)
+            return this.stationList.get(0).getSname();
+        return "";
+    }
+
+    public synchronized String getLastStation(){
+        if(this.stationList.size() >= 2)
+            return this.stationList.get(this.stationList.size()-1).getSname();
+        return "";
     }
 }

@@ -78,27 +78,31 @@
 
             <TextView
                 android:id="@+id/txt_departure_station"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="48dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Celoria"
+                android:text="ciaodamilanomarittima"
+                android:textAlignment="textStart"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/myBlueBlack"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_static_departure" />
 
             <TextView
                 android:id="@+id/txt_arrival_station"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Rogoredo"
+                android:text="ciaodamilanomarittima"
+                android:textAlignment="textEnd"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/myBlueBlack"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_static_arrival" />
 
@@ -107,12 +111,11 @@
                 style="@style/btnSwitchStyle"
                 android:layout_width="40dp"
                 android:layout_height="48dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
                 android:background="@drawable/ic_switch"
                 app:layout_constraintEnd_toStartOf="@+id/txt_arrival_station"
-                app:layout_constraintHorizontal_bias="0.58"
                 app:layout_constraintStart_toEndOf="@+id/txt_departure_station"
                 app:layout_constraintTop_toBottomOf="@+id/text_static_departure"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
