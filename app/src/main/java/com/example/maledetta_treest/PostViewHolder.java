@@ -29,7 +29,8 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         txtDelay.setText(String.valueOf(post.getDelay()));
         txtState.setText(String.valueOf(post.getStatus()));
         txtComment.setText(post.getComment());
-        txtDate.setText(post.getDatetime());
+        String datetime = post.getDatetime();
+        txtDate.setText(datetime.replace(datetime.substring(datetime.indexOf(".")), "")); //poichè non serve mostrare all'utente i millisecondi
         //TODO aggiungere img e situazione btn
     }
 
