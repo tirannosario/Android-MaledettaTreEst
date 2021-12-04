@@ -1,5 +1,6 @@
 package com.example.maledetta_treest;
 
+import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -43,6 +44,12 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         String datetime = post.getDatetime();
         txtDate.setText(datetime.replace(datetime.substring(datetime.indexOf(".")), "")); //poichè non serve mostrare all'utente i millisecondi
         //TODO aggiungere img e situazione btn
+        if(post.getFollowingAuthor().equals("true")) {
+            btnFollowing.setText("Non Seguire");
+            btnFollowing.setBackgroundTintList(btnFollowing.getResources().getColorStateList(R.color.myOrange));
+        }
+        else
+            btnFollowing.setText("Segui");
     }
 
 

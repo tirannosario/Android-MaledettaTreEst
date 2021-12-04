@@ -48,8 +48,8 @@
         <Button
             android:id="@+id/btn_follow"
             style="@style/btnSwitchStyle"
-            android:layout_width="105dp"
-            android:layout_height="41dp"
+            android:layout_width="115dp"
+            android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="Segui"
