@@ -157,4 +157,12 @@ public class MyModel {
     public synchronized int getFollowPostsSize(){
         return this.followPostList.size();
     }
+
+    public synchronized Post getAllPost(int i){
+        return this.allPostList.get(i);
+    }
+
+    public synchronized int getAllPostsSize(){
+        return this.allPostList.size();
+    }
 }

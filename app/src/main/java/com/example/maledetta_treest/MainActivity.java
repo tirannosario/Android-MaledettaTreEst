@@ -69,7 +69,10 @@ public class MainActivity extends AppCompatActivity {
                 PostsFollowAdapter postsFollowAdapter = new PostsFollowAdapter(this);
                 recyclerViewFollow.setAdapter(postsFollowAdapter);
 
-                //TODO fare lo stesso per i post di tutti gli utenti
+                RecyclerView recyclerViewAll = findViewById(R.id.recycleViewPostAll);
+                recyclerViewAll.setLayoutManager(new LinearLayoutManager(this));
+                PostsAllAdapter postsAllAdapter = new PostsAllAdapter(this);
+                recyclerViewAll.setAdapter(postsAllAdapter);
 
 
                 Log.d("Debug", "Questa è la bacheca con did: " + did);
@@ -91,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                         response -> {
                             MyModel.getSingleton().initPostsFromJSON((JSONObject) response);
                             postsFollowAdapter.notifyDataSetChanged();
+                            postsAllAdapter.notifyDataSetChanged();
                         },
                         error -> Log.d("Debug", "Error: " + error.toString()),
                         did
