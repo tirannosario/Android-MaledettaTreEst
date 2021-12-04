@@ -10,8 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class PostViewHolder extends RecyclerView.ViewHolder {
-    private String[] POST_DELAY = {"In Orario", "Di pochi minuti", "Oltre 15 minuti", "Treni Soppressi"};
-    private String[] POST_STATUS = {"situazione ideale", "accettabile", "gravi problemi per i passeggeri"};
+    private int[] POST_DELAY = {R.string.delay_0_string, R.string.delay_1_string, R.string.delay_2_string, R.string.delay_3_string};
+    private int[] POST_STATUS = {R.string.status_0_string, R.string.status_1_string, R.string.status_2_string};
 
     private TextView txtUsername, txtDelay, txtState, txtComment, txtDate;
     private ImageView userpic;
@@ -33,11 +33,11 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
 
         txtUsername.setText(post.getAuthorName());
         if(post.getDelay()!=-1 && post.getDelay() >= 0 && post.getDelay() <= 3)
-            txtDelay.setText(POST_DELAY[post.getDelay()]);
+            txtDelay.setText(txtDelay.getResources().getString(POST_DELAY[post.getDelay()]));
         else
             txtDelay.setText(emptyPlaceholder);
         if(post.getStatus()!=-1 && post.getStatus() >= 0 && post.getStatus() <= 2)
-            txtState.setText(POST_STATUS[post.getStatus()]);
+            txtState.setText(txtState.getResources().getString(POST_STATUS[post.getStatus()]));
         else
             txtState.setText(emptyPlaceholder);
         if(!post.getComment().equals(""))
