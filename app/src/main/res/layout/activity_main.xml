@@ -115,6 +115,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/ic_switch"
+                android:onClick="btnSwitchDirectionClicked"
                 app:layout_constraintEnd_toStartOf="@+id/txt_arrival_station"
                 app:layout_constraintStart_toEndOf="@+id/txt_departure_station"
                 app:layout_constraintTop_toBottomOf="@+id/text_static_departure"

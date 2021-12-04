@@ -133,5 +133,24 @@ public class MainActivity extends AppCompatActivity {
 
     public void btnCreatePostClicked(View view){
         Log.d("Debug", "voglio creare un post");
+        //TODO implementare creazione post
     }
+
+    public void btnSwitchDirectionClicked(View view){
+        Log.d("Debug", "Switch");
+        SharedPreferences settings = this.getSharedPreferences(PREFS_NAME, 0);
+        String inverseDid = settings.getString("inverseDirection", "null");
+        if(!inverseDid.equals("null"))
+        {
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString("direction", inverseDid);
+            editor.putString("inverseDirection", did);
+            editor.commit();
+            // refresh dell'activity (richiama l'OnCreate)
+            this.finish();
+            startActivity(getIntent());
+        }
+    }
+
+
 }
