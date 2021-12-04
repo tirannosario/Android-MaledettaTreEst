@@ -130,4 +130,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         this.finish();
     }
+
+    public void btnCreatePostClicked(View view){
+        Log.d("Debug", "voglio creare un post");
+    }
 }
