@@ -14,12 +14,15 @@ public class MyModel {
     private List<Line> linesList;
     private String sid;
     private List<Station> stationList; // verranno sovrascritte ad ogni cambio di direzione
-    private List<Post> postList; // verranno sovrascritti ad ogni cambio di bacheca (direzione)
+    private List<Post> allPostList; // verranno sovrascritti ad ogni cambio di bacheca (direzione)
+    private List<Post> followPostList; // verranno sovrascritti ad ogni cambio di bacheca (direzione)
+
 
     public MyModel() {
         this.linesList = new ArrayList<>();
         this.stationList = new ArrayList<>();
-        this.postList = new ArrayList<>();
+        this.allPostList = new ArrayList<>();
+        this.followPostList = new ArrayList<>();
     }
 
     public static synchronized MyModel getSingleton() {
@@ -70,7 +73,7 @@ public class MyModel {
     }
 
     //TODO refactor di tutte le init from JSON
-    public synchronized void initPostsFromJSON(JSONObject stations){
+/*    public synchronized void initPostsFromJSON(JSONObject stations){
         try {
             this.postList = new ArrayList<>();
             JSONArray postsJSON = stations.getJSONArray("posts");
@@ -92,6 +95,37 @@ public class MyModel {
         }
         for (Post s: this.postList) {
             Log.d("Debug", s.toString());
+        }
+    }*/
+
+    public synchronized void initPostsFromJSON(JSONObject posts){
+        try {
+            this.allPostList = new ArrayList<>();
+            this.followPostList = new ArrayList<>();
+            JSONArray postsJSON = posts.getJSONArray("posts");
+            Log.d("Debug", postsJSON.toString());
+            Log.d("Debug", "Size: " + postsJSON.length());
+            for(int i=0; i<postsJSON.length(); i++){
+                JSONObject post = (JSONObject) postsJSON.get(i);
+                Log.d("Debug", "post{"+i+"}:" + post);
+                Post p = new Post(
+                        // con i metodi optX riesco a definire un valore nel caso quell'attributo non è presente
+                        post.optInt("delay", -1),
+                        post.optInt("status", -1),
+                        post.optString("comment", ""),
+                        post.getString("followingAuthor"),
+                        post.getString("datetime"),
+                        post.getString("authorName"),
+                        post.getString("author"),
+                        Integer.parseInt(post.getString("pversion"))
+                );
+                if(p.getFollowingAuthor().equals("true"))
+                    this.followPostList.add(p);
+                else
+                    this.allPostList.add(p);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
@@ -153,11 +187,11 @@ public class MyModel {
         return "";
     }
 
-    public synchronized Post getPost(int i){
-        return this.postList.get(i);
+    public synchronized Post getFollowPost(int i){
+        return this.followPostList.get(i);
     }
 
-    public synchronized int getPostsSize(){
-        return this.postList.size();
+    public synchronized int getFollowPostsSize(){
+        return this.followPostList.size();
     }
 }

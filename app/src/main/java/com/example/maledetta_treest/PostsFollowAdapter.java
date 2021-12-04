@@ -16,7 +16,6 @@ public class PostsFollowAdapter extends RecyclerView.Adapter<PostViewHolder> {
         this.inflater = LayoutInflater.from(this.mainActivity);
     }
 
-    //TODO da IMPLEMENTARE
     @NonNull
     @Override
     public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -26,13 +25,13 @@ public class PostsFollowAdapter extends RecyclerView.Adapter<PostViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
-        Post post = MyModel.getSingleton().getPost(position);
+        Post post = MyModel.getSingleton().getFollowPost(position);
         holder.updateContent(post);
     }
 
     @Override
     public int getItemCount() {
-        return MyModel.getSingleton().getPostsSize();
+        return MyModel.getSingleton().getFollowPostsSize();
     }
 
 }
