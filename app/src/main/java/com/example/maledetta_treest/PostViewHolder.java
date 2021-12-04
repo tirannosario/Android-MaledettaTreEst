@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class PostViewHolder extends RecyclerView.ViewHolder {
-    private TextView txtUsername, txtDelay, txtState, txtComment;
+    private TextView txtUsername, txtDelay, txtState, txtComment, txtDate;
     private ImageView userpic;
     private Button btnFollowing;
 
@@ -21,6 +21,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         txtComment = itemView.findViewById(R.id.txtCommentPost);
         userpic = itemView.findViewById(R.id.img_userpic_post);
         btnFollowing = itemView.findViewById(R.id.btn_follow);
+        txtDate = itemView.findViewById(R.id.txtDatePost);
     }
 
     public void updateContent(Post post){
@@ -28,6 +29,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         txtDelay.setText(String.valueOf(post.getDelay()));
         txtState.setText(String.valueOf(post.getStatus()));
         txtComment.setText(post.getComment());
+        txtDate.setText(post.getDatetime());
         //TODO aggiungere img e situazione btn
     }
 
