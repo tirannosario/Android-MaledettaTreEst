@@ -25,10 +25,21 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void updateContent(Post post){
+        final String emptyPlaceholder = "//";
+
         txtUsername.setText(post.getAuthorName());
-        txtDelay.setText(String.valueOf(post.getDelay()));
-        txtState.setText(String.valueOf(post.getStatus()));
-        txtComment.setText(post.getComment());
+        if(post.getDelay()!=-1)
+            txtDelay.setText(String.valueOf(post.getDelay()));
+        else
+            txtDelay.setText(emptyPlaceholder);
+        if(post.getStatus()!=-1)
+            txtState.setText(String.valueOf(post.getStatus()));
+        else
+            txtState.setText(emptyPlaceholder);
+        if(!post.getComment().equals(""))
+            txtComment.setText(post.getComment());
+        else
+            txtComment.setText(emptyPlaceholder);
         String datetime = post.getDatetime();
         txtDate.setText(datetime.replace(datetime.substring(datetime.indexOf(".")), "")); //poichè non serve mostrare all'utente i millisecondi
         //TODO aggiungere img e situazione btn

@@ -73,31 +73,6 @@ public class MyModel {
     }
 
     //TODO refactor di tutte le init from JSON
-/*    public synchronized void initPostsFromJSON(JSONObject stations){
-        try {
-            this.postList = new ArrayList<>();
-            JSONArray postsJSON = stations.getJSONArray("posts");
-            for(int i=0; i<postsJSON.length(); i++){
-                JSONObject post = (JSONObject) postsJSON.get(i);
-                this.postList.add(new Post(
-                        Integer.parseInt(post.getString("delay")),
-                        Integer.parseInt(post.getString("status")),
-                        post.getString("comment"),
-                        post.getString("followingAuthor"),
-                        post.getString("datetime"),
-                        post.getString("authorName"),
-                        post.getString("author"),
-                        Integer.parseInt(post.getString("pversion"))
-                ));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        for (Post s: this.postList) {
-            Log.d("Debug", s.toString());
-        }
-    }*/
-
     public synchronized void initPostsFromJSON(JSONObject posts){
         try {
             this.allPostList = new ArrayList<>();
@@ -147,18 +122,6 @@ public class MyModel {
             e.getStackTrace();
         }
     }
-
-/*    private void createFakeLines(){
-        List<Station> stationList1 = new ArrayList<>();
-        stationList1.add(new Station("Milano Celoria"));
-        stationList1.add(new Station("Milano Rogoredo"));
-        List<Station> stationList2 = new ArrayList<>();
-        stationList2.add(new Station("Milano Lambrate"));
-        stationList2.add(new Station("Hogwarts"));
-        stationList2.add(new Station("Sesto San Giovanni"));
-        this.linesList.add(new Line(stationList1));
-        this.linesList.add(new Line(stationList2));
-    }*/
 
     public synchronized Line getLine(int i){
         return this.linesList.get(i);
