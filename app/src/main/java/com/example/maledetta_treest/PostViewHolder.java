@@ -10,6 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class PostViewHolder extends RecyclerView.ViewHolder {
+    private String[] POST_DELAY = {"In Orario", "Di pochi minuti", "Oltre 15 minuti", "Treni Soppressi"};
+    private String[] POST_STATUS = {"situazione ideale", "accettabile", "gravi problemi per i passeggeri"};
+
     private TextView txtUsername, txtDelay, txtState, txtComment, txtDate;
     private ImageView userpic;
     private Button btnFollowing;
@@ -29,12 +32,12 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         final String emptyPlaceholder = "//";
 
         txtUsername.setText(post.getAuthorName());
-        if(post.getDelay()!=-1)
-            txtDelay.setText(String.valueOf(post.getDelay()));
+        if(post.getDelay()!=-1 && post.getDelay() >= 0 && post.getDelay() <= 3)
+            txtDelay.setText(POST_DELAY[post.getDelay()]);
         else
             txtDelay.setText(emptyPlaceholder);
-        if(post.getStatus()!=-1)
-            txtState.setText(String.valueOf(post.getStatus()));
+        if(post.getStatus()!=-1 && post.getStatus() >= 0 && post.getStatus() <= 2)
+            txtState.setText(POST_STATUS[post.getStatus()]);
         else
             txtState.setText(emptyPlaceholder);
         if(!post.getComment().equals(""))
@@ -43,13 +46,13 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
             txtComment.setText(emptyPlaceholder);
         String datetime = post.getDatetime();
         txtDate.setText(datetime.replace(datetime.substring(datetime.indexOf(".")), "")); //poichè non serve mostrare all'utente i millisecondi
-        //TODO aggiungere img e situazione btn
         if(post.getFollowingAuthor().equals("true")) {
-            btnFollowing.setText("Non Seguire");
+            btnFollowing.setText(R.string.dont_follow_string);
             btnFollowing.setBackgroundTintList(btnFollowing.getResources().getColorStateList(R.color.myOrange));
         }
         else
-            btnFollowing.setText("Segui");
+            btnFollowing.setText(R.string.follow_string);
+        //TODO aggiungere img
     }
 
 

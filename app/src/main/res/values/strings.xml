@@ -8,4 +8,6 @@
     <string name="text_label_from_follow_users">Da Utenti Seguiti</string>
     <string name="text_labal_from_all_users">Da Tutti</string>
     <string name="text_label_choose_direction">Scegli una Direzione</string>
+    <string name="dont_follow_string">Non Seguire</string>
+    <string name="follow_string">Segui</string>
 </resources>

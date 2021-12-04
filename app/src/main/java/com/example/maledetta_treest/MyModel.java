@@ -78,11 +78,9 @@ public class MyModel {
             this.allPostList = new ArrayList<>();
             this.followPostList = new ArrayList<>();
             JSONArray postsJSON = posts.getJSONArray("posts");
-            Log.d("Debug", postsJSON.toString());
-            Log.d("Debug", "Size: " + postsJSON.length());
             for(int i=0; i<postsJSON.length(); i++){
                 JSONObject post = (JSONObject) postsJSON.get(i);
-                Log.d("Debug", "post{"+i+"}:" + post);
+//                Log.d("Debug", "post{"+i+"}:" + post);
                 Post p = new Post(
                         // con i metodi optX riesco a definire un valore nel caso quell'attributo non è presente
                         post.optInt("delay", -1),
