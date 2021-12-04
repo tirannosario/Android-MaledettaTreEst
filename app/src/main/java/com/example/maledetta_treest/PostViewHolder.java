@@ -1,6 +1,9 @@
 package com.example.maledetta_treest;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,6 +19,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     private TextView txtUsername, txtDelay, txtState, txtComment, txtDate;
     private ImageView userpic;
     private Button btnFollowing;
+    private MainActivity activity;
 
     public PostViewHolder(@NonNull View itemView, MainActivity activity) {
         super(itemView);
@@ -26,6 +30,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         userpic = itemView.findViewById(R.id.img_userpic_post);
         btnFollowing = itemView.findViewById(R.id.btn_follow);
         txtDate = itemView.findViewById(R.id.txtDatePost);
+        this.activity = activity;
     }
 
     public void updateContent(Post post){
@@ -33,11 +38,11 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
 
         txtUsername.setText(post.getAuthorName());
         if(post.getDelay()!=-1 && post.getDelay() >= 0 && post.getDelay() <= 3)
-            txtDelay.setText(txtDelay.getResources().getString(POST_DELAY[post.getDelay()]));
+            txtDelay.setText(activity.getResources().getString(POST_DELAY[post.getDelay()]));
         else
             txtDelay.setText(emptyPlaceholder);
         if(post.getStatus()!=-1 && post.getStatus() >= 0 && post.getStatus() <= 2)
-            txtState.setText(txtState.getResources().getString(POST_STATUS[post.getStatus()]));
+            txtState.setText(activity.getResources().getString(POST_STATUS[post.getStatus()]));
         else
             txtState.setText(emptyPlaceholder);
         if(!post.getComment().equals(""))
@@ -46,13 +51,27 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
             txtComment.setText(emptyPlaceholder);
         String datetime = post.getDatetime();
         txtDate.setText(datetime.replace(datetime.substring(datetime.indexOf(".")), "")); //poichè non serve mostrare all'utente i millisecondi
+
+        //gestione comportamento button follow/unfollow
+        InternetCommunication internetCommunication = new InternetCommunication(activity);
         if(post.getFollowingAuthor().equals("true")) {
             btnFollowing.setText(R.string.dont_follow_string);
-            btnFollowing.setBackgroundTintList(btnFollowing.getResources().getColorStateList(R.color.myOrange));
+            btnFollowing.setBackgroundTintList(activity.getResources().getColorStateList(R.color.myOrange));
+            btnFollowing.setOnClickListener(view -> {
+                Log.d("Debug", "Smetto di seguire il DID " + post.getAuthor());
+                internetCommunication.unfollowUser(response -> activity.refreshPostLists(), error -> Log.d("Debug", error.toString()), post.getAuthor());
+            });
         }
-        else
+        else {
             btnFollowing.setText(R.string.follow_string);
+            btnFollowing.setOnClickListener(view -> {
+                Log.d("Debug", "Inizio a seguire il DID " + post.getAuthor());
+                internetCommunication.followUser(response -> activity.refreshPostLists(), error -> Log.d("Debug", error.toString()), post.getAuthor());
+
+            });
+        }
         //TODO aggiungere img
+
     }
 
 

@@ -85,4 +85,40 @@ public class InternetCommunication {
         Log.d("Debug", "Faccio la getPosts di " + did);
         queue.add(request);
     }
+
+    public void followUser(Response.Listener listener, Response.ErrorListener errorListener, String uid){
+        final JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("sid", MyModel.getSingleton().getSid());
+            jsonBody.put("uid", uid);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest request = new JsonObjectRequest(
+                baseUrl+"follow.php",
+                jsonBody,
+                listener,
+                errorListener
+        );
+        Log.d("Debug", "Faccio la follow di " + uid);
+        queue.add(request);
+    }
+
+    public void unfollowUser(Response.Listener listener, Response.ErrorListener errorListener, String uid){
+        final JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("sid", MyModel.getSingleton().getSid());
+            jsonBody.put("uid", uid);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest request = new JsonObjectRequest(
+                baseUrl+"unfollow.php",
+                jsonBody,
+                listener,
+                errorListener
+        );
+        Log.d("Debug", "Faccio la unfollow di " + uid);
+        queue.add(request);
+    }
 }

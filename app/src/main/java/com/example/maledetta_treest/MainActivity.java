@@ -18,6 +18,9 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "SharedPreferences";
+    private PostsFollowAdapter postsFollowAdapter;
+    private PostsAllAdapter postsAllAdapter;
+    private String did;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         else{
             Log.d("Debug", "sid salvato: " + sid);
             MyModel.getSingleton().setSid(sid);
-            String did = settings.getString("direction", "null");
+            did = settings.getString("direction", "null");
             // controllo se ho già scelto una direzione l'ultima volta, altrimenti mostro la schermata delle Linee
             if(did.equals("null")){
                 Intent intent = new Intent(this, ShowLines.class);
@@ -66,12 +69,12 @@ public class MainActivity extends AppCompatActivity {
             else{
                 RecyclerView recyclerViewFollow = findViewById(R.id.recycleViewPostFollow);
                 recyclerViewFollow.setLayoutManager(new LinearLayoutManager(this));
-                PostsFollowAdapter postsFollowAdapter = new PostsFollowAdapter(this);
+                postsFollowAdapter = new PostsFollowAdapter(this);
                 recyclerViewFollow.setAdapter(postsFollowAdapter);
 
                 RecyclerView recyclerViewAll = findViewById(R.id.recycleViewPostAll);
                 recyclerViewAll.setLayoutManager(new LinearLayoutManager(this));
-                PostsAllAdapter postsAllAdapter = new PostsAllAdapter(this);
+                postsAllAdapter = new PostsAllAdapter(this);
                 recyclerViewAll.setAdapter(postsAllAdapter);
 
 
@@ -101,6 +104,20 @@ public class MainActivity extends AppCompatActivity {
                 );
             }
         }
+    }
+
+    public void refreshPostLists(){
+        Log.d("Debug", "Refresh Liste di Post");
+        InternetCommunication internetCommunication = new InternetCommunication(this);
+        internetCommunication.getPosts(
+                response -> {
+                    MyModel.getSingleton().initPostsFromJSON((JSONObject) response);
+                    postsFollowAdapter.notifyDataSetChanged();
+                    postsAllAdapter.notifyDataSetChanged();
+                },
+                error -> Log.d("Debug", "Error: " + error.toString()),
+                did // non sarà mai Null poichè questo metodo viene richiamato solo da btn dentro la bacheca (quindi abbiamo già un DID)
+        );
     }
 
     public void userBtnClicked(View view){
