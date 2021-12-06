@@ -10,6 +10,7 @@
     <string name="text_label_choose_direction">Scegli una Direzione</string>
     <string name="dont_follow_string">Non Seguire</string>
     <string name="follow_string">Segui</string>
+    <string name="empty_thing"> </string>
     <string name="delay_0_string">In Orario</string>
     <string name="delay_1_string">Di pochi minuti</string>
     <string name="delay_2_string">Oltre 15 minuti</string>
@@ -17,4 +18,5 @@
     <string name="status_0_string">Situazione ideale</string>
     <string name="status_1_string">Accettabile</string>
     <string name="status_2_string">Gravi problemi per i passeggeri</string>
+    <string name="back_text_create">Indietro</string>
 </resources>

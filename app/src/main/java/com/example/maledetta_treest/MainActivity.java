@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "SharedPreferences";
@@ -132,8 +133,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btnCreatePostClicked(View view){
-        Log.d("Debug", "voglio creare un post");
-        //TODO implementare creazione post
+        TextView txtDeparture = findViewById(R.id.txt_departure_station);
+        TextView txtArrival = findViewById(R.id.txt_arrival_station);
+        Intent intent = new Intent(this, CreatePost.class);
+        intent.putExtra("departure", txtDeparture.getText().toString());
+        intent.putExtra("arrival", txtArrival.getText().toString());
+        // il did della bacheca lo prenderemo dal Model
+        startActivity(intent);
     }
 
     public void btnSwitchDirectionClicked(View view){
