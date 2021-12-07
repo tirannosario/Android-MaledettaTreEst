@@ -145,4 +145,21 @@ public class InternetCommunication {
         Log.d("Debug", "Creo il post su " + did + " {" + delay + ", " + status + ", " + comment + "}");
         queue.add(request);
     }
+
+    public void getProfile(Response.Listener listener, Response.ErrorListener errorListener){
+        final JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("sid", MyModel.getSingleton().getSid());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest request = new JsonObjectRequest(
+                baseUrl+"getProfile.php",
+                jsonBody,
+                listener,
+                errorListener
+        );
+        Log.d("Debug", "Faccio la getProfile");
+        queue.add(request);
+    }
 }
