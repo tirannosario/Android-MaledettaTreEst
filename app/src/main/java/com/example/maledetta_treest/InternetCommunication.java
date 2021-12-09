@@ -162,4 +162,25 @@ public class InternetCommunication {
         Log.d("Debug", "Faccio la getProfile");
         queue.add(request);
     }
+
+    public void setProfile(Response.Listener listener, Response.ErrorListener errorListener, String name, String picture){
+        final JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("sid", MyModel.getSingleton().getSid());
+            if(!name.equals(""))
+                jsonBody.put("name", name);
+            if(!picture.equals(""))
+                jsonBody.put("picture", picture);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest request = new JsonObjectRequest(
+                baseUrl+"setProfile.php",
+                jsonBody,
+                listener,
+                errorListener
+        );
+        Log.d("Debug", "Faccio la setProfile");
+        queue.add(request);
+    }
 }

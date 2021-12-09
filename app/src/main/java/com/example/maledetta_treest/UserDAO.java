@@ -3,6 +3,7 @@ package com.example.maledetta_treest;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -16,5 +17,8 @@ public interface UserDAO {
 
     @Insert
     void insertUsers(User... users);
+
+    @Update
+    public void updateUsers(User... users); // di default fa l'update degli User con uid uguale
 
 }
