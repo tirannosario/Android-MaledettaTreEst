@@ -180,6 +180,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestart() { // così quando ritorniamo dalla creazione di un post posso vedere anche il mio post nella lista di post
         super.onRestart();
         refreshPostLists();
-//        Log.d("Debug", "Activity Main Restarded");
     }
 }

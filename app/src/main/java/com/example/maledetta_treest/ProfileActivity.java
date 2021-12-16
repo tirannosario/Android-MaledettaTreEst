@@ -30,6 +30,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class ProfileActivity extends AppCompatActivity {
+    public static final String NOT_SQUARE_ERROR = "NOT_SQUARE";
+    public static final String TOO_BIG_ERROR = "TOO_BIG";
     private ImageView biopic;
     private String newPic = "";
     private Button btnChangePic;
@@ -140,7 +142,8 @@ public class ProfileActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_PIC_REQUEST && resultCode == RESULT_OK) {
             newPic = toBase64(data); // salvo la nuova img base64
-            biopic.setImageBitmap(decodeBase64(newPic)); // mostra la nuova img
+            if(!newPic.equals("ERROR"))
+                biopic.setImageBitmap(decodeBase64(newPic)); // mostra la nuova img
         }
     }
 
@@ -149,12 +152,21 @@ public class ProfileActivity extends AppCompatActivity {
         Uri uri=data.getData();
         try {
             Bitmap bitmap= MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
+            if(bitmap.getWidth() != bitmap.getHeight())
+                throw new Exception(NOT_SQUARE_ERROR);
             ByteArrayOutputStream stream=new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream);
             byte[] bytes=stream.toByteArray();
             imgString =  Base64.encodeToString(bytes,Base64.DEFAULT);
-        } catch (IOException e) {
+            if(imgString.length() >= 137000)
+                throw new Exception(TOO_BIG_ERROR);
+        } catch (Exception e) {
             e.printStackTrace();
+            if(e.getMessage().equals(NOT_SQUARE_ERROR))
+                makeErrorToast("Caricare un Immagine Quadrata");
+            else if(e.getMessage().equals(TOO_BIG_ERROR))
+                makeErrorToast("Carica un Immagine più piccola di 100KB");
+            imgString = "ERROR";
         }
         return imgString;
     }
@@ -163,5 +175,10 @@ public class ProfileActivity extends AppCompatActivity {
         byte[] bytes = Base64.decode(base64Text, Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         return bitmap; //TODO gestire errori presenti nel testo base64
+    }
+
+    private void makeErrorToast(String msg){
+        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
+        toast.show();
     }
 }
