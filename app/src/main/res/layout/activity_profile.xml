@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProfileActivity">
+
     <ImageView
         android:id="@+id/biopic"
         android:layout_width="194dp"
@@ -16,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/cat"
+        app:srcCompat="@drawable/placeholder_user_pic"
         tools:ignore="ImageContrastCheck" />
 
     <Button

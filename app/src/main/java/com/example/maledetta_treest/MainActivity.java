@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar.hide();
 
         // controllo se è la prima volta che avvio l'app (ovvero se non ho il SID)
+        //TODO la prima volta prelevare il DID dalle shared preferences, le altre volte nel model (quindi dobbiamo salvarlo) per motivi di efficienza
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         String sid = settings.getString("sid", "null");
         if(sid.equals("null")) {
