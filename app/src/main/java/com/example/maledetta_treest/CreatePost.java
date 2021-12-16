@@ -73,8 +73,15 @@ public class CreatePost extends AppCompatActivity {
                 builder.create().show();
             }
             else {
-                SharedPreferences settings = this.getSharedPreferences(PREFS_NAME, 0);
-                String did = settings.getString("direction", "null");
+                //controllo se ho il did nel Model
+                String did;
+                if(MyModel.getSingleton().getDid().equals("null")) {
+                    SharedPreferences settings = this.getSharedPreferences(PREFS_NAME, 0);
+                    did = settings.getString("direction", "null");
+                }
+                else
+                    did = MyModel.getSingleton().getDid();
+
                 if(!did.equals("null")) { // comunque non dovrebbe mai succedere, se sono arrivato a questa activity
                     InternetCommunication internetCommunication = new InternetCommunication(this);
                     internetCommunication.createPost(

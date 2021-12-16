@@ -47,13 +47,15 @@ public class LineViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void openBoard(String did1, String did2){
-        // non passo il DID tramite intent, poichè uso le SharedPreferences, visto che il DID sarà un dato che manterrò in memoria
+        // non passo il DID tramite intent, poichè uso le SharedPreferences/Model e quindi il DID sarà un dato che manterrò in memoria
         Intent intent = new Intent(context, MainActivity.class);
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString("direction", did1);
         editor.putString("inverseDirection", did2); //mi salvo anche il did inverso, così da saperlo subito quando faccio l'inversione della direzione direttamente dalla bacheca
         editor.commit();
+        MyModel.getSingleton().setDid(did1);
+        MyModel.getSingleton().setInverseDid(did2);
         context.startActivity(intent);
         ((Activity)context).finish();
     }

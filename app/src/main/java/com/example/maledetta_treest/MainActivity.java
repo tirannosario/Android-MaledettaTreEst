@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar.hide();
 
         // controllo se è la prima volta che avvio l'app (ovvero se non ho il SID)
-        //TODO la prima volta prelevare il DID dalle shared preferences, le altre volte nel model (quindi dobbiamo salvarlo) per motivi di efficienza
+        //TODO forse anche il sid devo prenderlo dal model? ha senso?
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         String sid = settings.getString("sid", "null");
         if(sid.equals("null")) {
@@ -61,7 +61,14 @@ public class MainActivity extends AppCompatActivity {
         else{
             Log.d("Debug", "sid salvato: " + sid);
             MyModel.getSingleton().setSid(sid);
-            did = settings.getString("direction", "null");
+            // controllo se ho il did salvato nel Model
+            String modelDid = MyModel.getSingleton().getDid();
+            if(modelDid.equals("null")) {
+                did = settings.getString("direction", "null");
+                MyModel.getSingleton().setDid(did);
+            }
+            else
+                did = modelDid;
             // controllo se ho già scelto una direzione l'ultima volta, altrimenti mostro la schermata delle Linee
             if(did.equals("null")){
                 Intent intent = new Intent(this, ShowLines.class);
@@ -145,14 +152,24 @@ public class MainActivity extends AppCompatActivity {
 
     public void btnSwitchDirectionClicked(View view){
         Log.d("Debug", "Switch");
-        SharedPreferences settings = this.getSharedPreferences(PREFS_NAME, 0);
-        String inverseDid = settings.getString("inverseDirection", "null");
+        // controllo se ho l'inverseDid nel Model
+        String inverseDid;
+        if(MyModel.getSingleton().getInverseDid().equals("null")) {
+            SharedPreferences settings = this.getSharedPreferences(PREFS_NAME, 0);
+            inverseDid = settings.getString("inverseDirection", "null");
+        }
+        else
+            inverseDid = MyModel.getSingleton().getInverseDid();
+
         if(!inverseDid.equals("null"))
         {
+            SharedPreferences settings = this.getSharedPreferences(PREFS_NAME, 0);
             SharedPreferences.Editor editor = settings.edit();
             editor.putString("direction", inverseDid);
             editor.putString("inverseDirection", did);
             editor.commit();
+            MyModel.getSingleton().setDid(inverseDid);
+            MyModel.getSingleton().setInverseDid(did);
             // refresh dell'activity (richiama l'OnCreate)
             this.finish();
             startActivity(getIntent());

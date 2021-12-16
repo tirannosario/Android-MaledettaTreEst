@@ -16,7 +16,8 @@ public class MyModel {
     private List<Station> stationList; // verranno sovrascritte ad ogni cambio di direzione
     private List<Post> allPostList; // verranno sovrascritti ad ogni cambio di bacheca (direzione)
     private List<Post> followPostList; // verranno sovrascritti ad ogni cambio di bacheca (direzione)
-
+    private String did = "null";
+    private String inverseDid = "null";
 
     public MyModel() {
         this.linesList = new ArrayList<>();
@@ -162,5 +163,21 @@ public class MyModel {
 
     public synchronized int getAllPostsSize(){
         return this.allPostList.size();
+    }
+
+    public synchronized String getDid() {
+        return did;
+    }
+
+    public synchronized void setDid(String did) {
+        this.did = did;
+    }
+
+    public synchronized String getInverseDid() {
+        return inverseDid;
+    }
+
+    public synchronized void setInverseDid(String inverseDid) {
+        this.inverseDid = inverseDid;
     }
 }
