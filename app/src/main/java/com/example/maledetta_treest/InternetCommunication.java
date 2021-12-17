@@ -183,4 +183,22 @@ public class InternetCommunication {
         Log.d("Debug", "Faccio la setProfile");
         queue.add(request);
     }
+
+    public void getUserPicture(Response.Listener listener, Response.ErrorListener errorListener, String uid){
+        final JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("sid", MyModel.getSingleton().getSid());
+            jsonBody.put("uid", uid);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest request = new JsonObjectRequest(
+                baseUrl+"getUserPicture.php",
+                jsonBody,
+                listener,
+                errorListener
+        );
+        Log.d("Debug", "Faccio la getUserPicture di " + uid);
+        queue.add(request);
+    }
 }

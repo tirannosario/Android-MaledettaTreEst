@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+        final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, "db_users").build();
 
         // controllo se è la prima volta che avvio l'app (ovvero se non ho il SID)
         //TODO forse anche il sid devo prenderlo dal model? ha senso?
@@ -78,12 +80,12 @@ public class MainActivity extends AppCompatActivity {
             else{
                 RecyclerView recyclerViewFollow = findViewById(R.id.recycleViewPostFollow);
                 recyclerViewFollow.setLayoutManager(new LinearLayoutManager(this));
-                postsFollowAdapter = new PostsFollowAdapter(this);
+                postsFollowAdapter = new PostsFollowAdapter(this, db);
                 recyclerViewFollow.setAdapter(postsFollowAdapter);
 
                 RecyclerView recyclerViewAll = findViewById(R.id.recycleViewPostAll);
                 recyclerViewAll.setLayoutManager(new LinearLayoutManager(this));
-                postsAllAdapter = new PostsAllAdapter(this);
+                postsAllAdapter = new PostsAllAdapter(this, db);
                 recyclerViewAll.setAdapter(postsAllAdapter);
 
 

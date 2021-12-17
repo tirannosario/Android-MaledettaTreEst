@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 public class PostsAllAdapter extends RecyclerView.Adapter<PostViewHolder> {
     private LayoutInflater inflater;
     private MainActivity mainActivity;
+    private AppDatabase db;
 
-    public PostsAllAdapter(MainActivity mainActivity) {
+    public PostsAllAdapter(MainActivity mainActivity, AppDatabase db) {
         this.mainActivity = mainActivity;
         this.inflater = LayoutInflater.from(this.mainActivity);
+        this.db = db;
     }
 
     @NonNull
@@ -27,7 +29,7 @@ public class PostsAllAdapter extends RecyclerView.Adapter<PostViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         Post post = MyModel.getSingleton().getAllPost(position);
-        holder.updateContent(post);
+        holder.updateContent(post, db);
     }
 
     @Override

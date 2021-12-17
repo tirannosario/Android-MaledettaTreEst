@@ -142,7 +142,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_PIC_REQUEST && resultCode == RESULT_OK) {
             newPic = toBase64(data); // salvo la nuova img base64
-            if(!newPic.equals("ERROR"))
+            if(!newPic.equals(""))
                 biopic.setImageBitmap(decodeBase64(newPic)); // mostra la nuova img
         }
     }
@@ -166,7 +166,7 @@ public class ProfileActivity extends AppCompatActivity {
                 makeErrorToast("Caricare un Immagine Quadrata");
             else if(e.getMessage().equals(TOO_BIG_ERROR))
                 makeErrorToast("Carica un Immagine più piccola di 100KB");
-            imgString = "ERROR";
+            imgString = "";
         }
         return imgString;
     }
