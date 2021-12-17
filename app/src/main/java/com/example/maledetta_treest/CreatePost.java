@@ -90,7 +90,6 @@ public class CreatePost extends AppCompatActivity {
                                 Toast toast = Toast.makeText(this, "Post Aggiunto", Toast.LENGTH_SHORT);
                                 toast.show();
                                 this.finish();
-                                // TODO forse sarebbe meglio aggiornare la lista dei post nell'activity precedente!
                             },
                             error -> Log.d("Debug", "Error: " + error.toString()),
                             did,

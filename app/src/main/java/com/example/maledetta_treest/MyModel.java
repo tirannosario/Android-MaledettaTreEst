@@ -201,4 +201,8 @@ public class MyModel {
         }
         return -1;
     }
+
+    public synchronized List<Station> getStationList() {
+        return stationList;
+    }
 }

@@ -183,4 +183,9 @@ public class MainActivity extends AppCompatActivity {
         super.onRestart();
         refreshPostLists();
     }
+
+    public void btnDirectionDetailClicked(View view){
+        Intent intent = new Intent(this, DirectionDetail.class);
+        startActivity(intent);
+    }
 }

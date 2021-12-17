@@ -19,4 +19,5 @@
     <string name="status_1_string">Accettabile</string>
     <string name="status_2_string">Gravi problemi per i passeggeri</string>
     <string name="back_text_create">Indietro</string>
+    <string name="btnDirectionDetailBack_text">Torna Indietro</string>
 </resources>
