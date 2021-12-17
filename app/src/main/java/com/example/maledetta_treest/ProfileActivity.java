@@ -67,8 +67,11 @@ public class ProfileActivity extends AppCompatActivity {
                         }
                     ).start();
                     txtChangeName.setHint(user.getUname());
-                    if(!user.getUpicture().equals("null"))
-                        biopic.setImageBitmap(decodeBase64(user.getUpicture()));
+                    if(!user.getUpicture().equals("null")) {
+                        Bitmap bitmap = decodeBase64(user.getUpicture());
+                        if(bitmap != null) // nel caso l'user abbia una pic codificata male (che comunque impossibile averla usando il caricamento da app)
+                            biopic.setImageBitmap(bitmap);
+                    }
                 },
                 error -> Log.d("Debug", "Error: " + error.toString())
         );

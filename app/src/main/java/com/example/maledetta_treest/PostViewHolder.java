@@ -135,8 +135,11 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
 
     private void setUserPic(String img){
         try {
-            if (!img.equals("null"))
-                userpic.setImageBitmap(decodeBase64(img));
+            if (!img.equals("null")) {
+                Bitmap bitmap = decodeBase64(img);
+                if(bitmap != null) // nel caso in cui l'utente abbia una pic codificata male
+                    userpic.setImageBitmap(bitmap);
+            }
         }
         catch(Exception e){
             e.printStackTrace();
@@ -144,7 +147,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     }
 
     public Bitmap decodeBase64(String base64Text){
-//        Log.d("Debug", "Mosto l'immagine " + base64Text);
+        Log.d("Debug", "Mosto l'immagine " + base64Text);
         byte[] bytes = Base64.decode(base64Text, Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         return bitmap; //TODO gestire errori presenti nel testo base64
