@@ -91,7 +91,10 @@ public class CreatePost extends AppCompatActivity {
                                 toast.show();
                                 this.finish();
                             },
-                            error -> Log.d("Debug", "Error: " + error.toString()),
+                            error -> {
+                                Log.d("Debug", "Error: " + error.toString());
+                                InternetCommunication.showNetworkError(this, false);
+                            },
                             did,
                             delayInt,
                             statusInt,

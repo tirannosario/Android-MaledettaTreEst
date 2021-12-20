@@ -67,13 +67,23 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
             btnFollowing.setBackgroundTintList(activity.getResources().getColorStateList(R.color.myOrange));
             btnFollowing.setOnClickListener(view -> {
                 Log.d("Debug", "Smetto di seguire il DID " + post.getAuthor());
-                internetCommunication.unfollowUser(response -> activity.refreshPostLists(), error -> Log.d("Debug", error.toString()), post.getAuthor());
+                internetCommunication.unfollowUser(response -> activity.refreshPostLists(),
+                        error -> {
+                            Log.d("Debug", error.toString());
+                            InternetCommunication.showNetworkError(this.activity, false);
+                        },
+                        post.getAuthor());
             });
         } else {
             btnFollowing.setText(R.string.follow_string);
             btnFollowing.setOnClickListener(view -> {
                 Log.d("Debug", "Inizio a seguire il DID " + post.getAuthor());
-                internetCommunication.followUser(response -> activity.refreshPostLists(), error -> Log.d("Debug", error.toString()), post.getAuthor());
+                internetCommunication.followUser(response -> activity.refreshPostLists(),
+                        error -> {
+                            Log.d("Debug", error.toString());
+                            InternetCommunication.showNetworkError(this.activity, false);
+                        },
+                        post.getAuthor());
 
             });
         }

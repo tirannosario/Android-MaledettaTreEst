@@ -1,7 +1,10 @@
 package com.example.maledetta_treest;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -200,5 +203,20 @@ public class InternetCommunication {
         );
         Log.d("Debug", "Faccio la getUserPicture di " + uid);
         queue.add(request);
+    }
+
+    // per mostrare Alert di errore di Network
+    public static void showNetworkError(Activity activity, boolean closeApp){
+        String textClose = "";
+        if(closeApp)
+            textClose = "L'App verrà chiusa";
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle("Errore di Collegamento!").setMessage("Controlla la tua connessione o riprova tra qualche minuto...\n" + textClose)
+                .setPositiveButton("Ok", (dialogInterface, i) -> {
+                    if(closeApp)
+                        activity.finish();
+                });
+        builder.setCancelable(false);
+        builder.create().show();
     }
 }

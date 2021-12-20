@@ -31,7 +31,10 @@ public class ShowLines extends AppCompatActivity {
                     MyModel.getSingleton().initLinesFromJSON((JSONObject) response);
                     myAdapter.notifyDataSetChanged();
                 },
-                error ->  Log.d("Debug", "Error: " + error.toString())
+                error ->  {
+                    Log.d("Debug", "Error: " + error.toString());
+                    InternetCommunication.showNetworkError(this, true);
+                }
         );
     }
 

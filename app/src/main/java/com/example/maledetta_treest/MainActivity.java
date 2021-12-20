@@ -1,11 +1,13 @@
 package com.example.maledetta_treest;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -56,7 +58,10 @@ public class MainActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     },
-                    error -> Log.d("Debug", "Error: " + error.toString())
+                    error -> {
+                        Log.d("Debug", "Error: " + error.toString());
+                        InternetCommunication.showNetworkError(this, true);
+                    }
             );
         }
         else{
@@ -99,7 +104,10 @@ public class MainActivity extends AppCompatActivity {
                             txtDeparture.setText(MyModel.getSingleton().getFirstStation());
                             txtArrival.setText(MyModel.getSingleton().getLastStation());
                         },
-                        error -> Log.d("Debug", "Error: " + error.toString()),
+                        error -> {
+                            Log.d("Debug", "Error: " + error.toString());
+                            InternetCommunication.showNetworkError(this, true);
+                        },
                         did
                 );
 
@@ -109,7 +117,10 @@ public class MainActivity extends AppCompatActivity {
                             postsFollowAdapter.notifyDataSetChanged();
                             postsAllAdapter.notifyDataSetChanged();
                         },
-                        error -> Log.d("Debug", "Error: " + error.toString()),
+                        error -> {
+                            Log.d("Debug", "Error: " + error.toString());
+                            InternetCommunication.showNetworkError(this, true);
+                        },
                         did
                 );
             }
@@ -125,7 +136,10 @@ public class MainActivity extends AppCompatActivity {
                     postsFollowAdapter.notifyDataSetChanged();
                     postsAllAdapter.notifyDataSetChanged();
                 },
-                error -> Log.d("Debug", "Error: " + error.toString()),
+                error -> {
+                    Log.d("Debug", "Error: " + error.toString());
+                    InternetCommunication.showNetworkError(this, true);
+                },
                 did // non sarà mai Null poichè questo metodo viene richiamato solo da btn dentro la bacheca (quindi abbiamo già un DID)
         );
     }
@@ -187,4 +201,5 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, DirectionDetail.class);
         startActivity(intent);
     }
+
 }

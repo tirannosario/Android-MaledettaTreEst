@@ -73,7 +73,10 @@ public class ProfileActivity extends AppCompatActivity {
                             biopic.setImageBitmap(bitmap);
                     }
                 },
-                error -> Log.d("Debug", "Error: " + error.toString())
+                error -> {
+                    Log.d("Debug", "Error: " + error.toString());
+                    InternetCommunication.showNetworkError(this, false);
+                }
         );
     }
 
@@ -92,7 +95,10 @@ public class ProfileActivity extends AppCompatActivity {
                             toast.show();
                             this.finish();
                         },
-                        error -> Log.d("Debug", "Error: " + error.toString()), // TODO dare errore all'utente tramite Alert/Toast
+                        error -> {
+                            Log.d("Debug", "Error: " + error.toString());
+                            InternetCommunication.showNetworkError(this, false);
+                        },
                         newName,
                         newPic
                 );
