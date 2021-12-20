@@ -1,6 +1,7 @@
 package com.example.maledetta_treest;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 
@@ -218,5 +219,16 @@ public class InternetCommunication {
                 });
         builder.setCancelable(false);
         builder.create().show();
+    }
+
+    public static ProgressDialog showProgressSpinner(Activity activity){
+        ProgressDialog pDialog = new ProgressDialog(activity);
+        pDialog.setMessage("Loading...");
+        pDialog.show();
+        return  pDialog;
+    }
+
+    public static void stopProgressSpinner(Activity activity, ProgressDialog pDialog){
+        pDialog.dismiss();
     }
 }

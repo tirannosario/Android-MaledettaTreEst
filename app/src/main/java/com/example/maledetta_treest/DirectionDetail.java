@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -64,6 +65,7 @@ public class DirectionDetail extends AppCompatActivity {
 
     @SuppressLint("MissingPermission") // altrimenti diceva che mancavano i permessi sul manifest (anche se ci sono)
     private void requestCurrentLocation(){
+        ProgressDialog p = InternetCommunication.showProgressSpinner(this);
         FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         fusedLocationClient.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, null)
                 .addOnSuccessListener(
@@ -76,6 +78,7 @@ public class DirectionDetail extends AppCompatActivity {
                                 bundle.putDouble("userLong", location.getLongitude());
                                 mapFragment.setArguments(bundle);
                                 getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerViewMaps, mapFragment).commit();
+                                p.dismiss();
                             }
                         });
     }

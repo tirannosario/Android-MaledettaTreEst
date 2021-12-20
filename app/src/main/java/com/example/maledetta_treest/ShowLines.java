@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,10 +27,12 @@ public class ShowLines extends AppCompatActivity {
         recyclerView.setAdapter(myAdapter);
 
         InternetCommunication internetCommunication = new InternetCommunication(this);
+        ProgressDialog p = InternetCommunication.showProgressSpinner(this);
         internetCommunication.getLines(
                 response -> {
                     MyModel.getSingleton().initLinesFromJSON((JSONObject) response);
                     myAdapter.notifyDataSetChanged();
+                    p.dismiss();
                 },
                 error ->  {
                     Log.d("Debug", "Error: " + error.toString());

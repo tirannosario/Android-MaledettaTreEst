@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -111,11 +112,13 @@ public class MainActivity extends AppCompatActivity {
                         did
                 );
 
+                ProgressDialog p = InternetCommunication.showProgressSpinner(this);
                 internetCommunication.getPosts(
                         response -> {
                             MyModel.getSingleton().initPostsFromJSON((JSONObject) response);
                             postsFollowAdapter.notifyDataSetChanged();
                             postsAllAdapter.notifyDataSetChanged();
+                            p.dismiss();
                         },
                         error -> {
                             Log.d("Debug", "Error: " + error.toString());
@@ -130,11 +133,13 @@ public class MainActivity extends AppCompatActivity {
     public void refreshPostLists(){
         Log.d("Debug", "Refresh Liste di Post");
         InternetCommunication internetCommunication = new InternetCommunication(this);
+        ProgressDialog p = InternetCommunication.showProgressSpinner(this);
         internetCommunication.getPosts(
                 response -> {
                     MyModel.getSingleton().initPostsFromJSON((JSONObject) response);
                     postsFollowAdapter.notifyDataSetChanged();
                     postsAllAdapter.notifyDataSetChanged();
+                    p.dismiss();
                 },
                 error -> {
                     Log.d("Debug", "Error: " + error.toString());
