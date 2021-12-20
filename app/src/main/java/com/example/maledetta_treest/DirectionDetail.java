@@ -65,7 +65,7 @@ public class DirectionDetail extends AppCompatActivity {
         fusedLocationClient.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, null)
                 .addOnSuccessListener(
                         location -> {
-                            if (location != null && !getSupportFragmentManager().isDestroyed()) {
+                            if (location != null && !getSupportFragmentManager().isDestroyed()) { // controllo il fragmentManager, poichè se torno all'activity precedente prima che questo metodo sia richiamato, il fragmentManager non esiste più e darà errori
                                 Log.d("Debug", "Current Location:" + location.toString());
                                 MapsFragment mapFragment = new MapsFragment();
                                 Bundle bundle = new Bundle();
