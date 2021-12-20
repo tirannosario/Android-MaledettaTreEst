@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -32,26 +33,35 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
 public class MapsFragment extends Fragment {
+    private LatLng userPos;
+    private GoogleMap gMap;
     public MapsFragment() {
     }
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
         @Override
         public void onMapReady(GoogleMap googleMap) {
+            FloatingActionButton btnUser = getActivity().findViewById(R.id.fabSearchUser);
             // mostro la posizione dell'utente
+            gMap = googleMap;
             if(getArguments() != null){
                 Double userLat = getArguments().getDouble("userLat");
                 Double userLong = getArguments().getDouble("userLong");
+                userPos = new LatLng(userLat, userLong);
                 Log.d("Debug", "L'utente è a: " + userLat + " " + userLong);
                 googleMap.addMarker(new MarkerOptions()
                         .position(new LatLng(userLat, userLong))
                         .title("Posizione Corrente")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                btnUser.setOnClickListener(view1 -> gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userPos, 12.0f)));
             }
+            else
+                btnUser.setVisibility(View.GONE);
 
             List<Station> stationList = MyModel.getSingleton().getStationList();
             PolylineOptions polylineOptions = new PolylineOptions();

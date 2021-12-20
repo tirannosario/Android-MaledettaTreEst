@@ -53,6 +53,9 @@ public class DirectionDetail extends AppCompatActivity {
                 Log.d("Debug", "Ancora non da i permessi!");
                 Toast toast = Toast.makeText(this, "La posizione è necessaria per offrire un servizio migliore. Se vuoi fornirla vai su:\n Impostazioni -> Posizione -> Maledetta TreEst", Toast.LENGTH_LONG);
                 toast.show();
+                // comunque mostro lo stesso la mappa
+                MapsFragment mapFragment = new MapsFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerViewMaps, mapFragment).commit();
 
             }
             return;
