@@ -29,6 +29,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.List;
 
@@ -51,11 +54,15 @@ public class MapsFragment extends Fragment {
             }
 
             List<Station> stationList = MyModel.getSingleton().getStationList();
+            PolylineOptions polylineOptions = new PolylineOptions();
             for (Station s : stationList) {
                 googleMap.addMarker(new MarkerOptions()
                         .position(new LatLng(Double.parseDouble(s.getLat()), Double.parseDouble(s.getLon())))
                         .title(s.getSname()));
+                polylineOptions.add(new LatLng(Double.parseDouble(s.getLat()), Double.parseDouble(s.getLon())));
             }
+            Polyline polyline = googleMap.addPolyline(polylineOptions);
+            polyline.setColor(R.color.myPurple);
             if (stationList.size() > 0) {
                 LatLng firstStation = new LatLng(Double.parseDouble(stationList.get(0).getLat()), Double.parseDouble(stationList.get(0).getLon()));
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(firstStation, 12.0f));
