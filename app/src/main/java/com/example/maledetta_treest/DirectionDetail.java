@@ -65,7 +65,7 @@ public class DirectionDetail extends AppCompatActivity {
         fusedLocationClient.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, null)
                 .addOnSuccessListener(
                         location -> {
-                            if (location != null) {
+                            if (location != null && !getSupportFragmentManager().isDestroyed()) {
                                 Log.d("Debug", "Current Location:" + location.toString());
                                 MapsFragment mapFragment = new MapsFragment();
                                 Bundle bundle = new Bundle();
