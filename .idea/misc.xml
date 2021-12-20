@@ -8,12 +8,14 @@
         <entry key="app/src/main/res/drawable/ic_add.xml" value="0.262037037037037" />
         <entry key="app/src/main/res/drawable/ic_back_arrow.xml" value="0.26851851851851855" />
         <entry key="app/src/main/res/drawable/ic_edit.xml" value="0.26851851851851855" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.22777777777777777" />
         <entry key="app/src/main/res/drawable/ic_right_arrow_1.xml" value="0.2490740740740741" />
         <entry key="app/src/main/res/drawable/ic_right_arrow_2.xml" value="0.2490740740740741" />
         <entry key="app/src/main/res/drawable/ic_switch.xml" value="0.26851851851851855" />
         <entry key="app/src/main/res/drawable/ic_train.xml" value="0.2712962962962963" />
         <entry key="app/src/main/res/drawable/ic_train_as_arrow.xml" value="0.2490740740740741" />
         <entry key="app/src/main/res/drawable/ic_user_follow.xml" value="0.27314814814814814" />
+        <entry key="app/src/main/res/drawable/ic_user_start_follow.xml" value="0.22777777777777777" />
         <entry key="app/src/main/res/drawable/ic_user_svgrepo_com.xml" value="0.26851851851851855" />
         <entry key="app/src/main/res/drawable/ic_users_all.xml" value="0.27314814814814814" />
         <entry key="app/src/main/res/drawable/ic_users_follow.xml" value="0.27314814814814814" />

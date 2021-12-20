@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, "db_users").build();
 
         // controllo se è la prima volta che avvio l'app (ovvero se non ho il SID)
-        //TODO forse anche il sid devo prenderlo dal model? ha senso?
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         String sid = settings.getString("sid", "null");
         if(sid.equals("null")) {
