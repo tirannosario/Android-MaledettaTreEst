@@ -36,6 +36,7 @@ public class CreatePost extends AppCompatActivity {
         Intent intent = getIntent();
         TextView txtDeparture = findViewById(R.id.txt_departure_station_create);
         TextView txtArrival = findViewById(R.id.txt_arrival_station_create);
+        Log.d("Debug", "Ricreo activity con " + intent.getStringExtra("departure") + " " + intent.getStringExtra("arrival"));
         txtDeparture.setText(intent.getStringExtra("departure"));
         txtArrival.setText(intent.getStringExtra("arrival"));
         txtComment = findViewById(R.id.txtCommentCreate);
@@ -121,5 +122,14 @@ public class CreatePost extends AppCompatActivity {
             }
         }
         return -1;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the user's current game state
+        Log.d("Debug", "Sto uscendo");
+
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
     }
 }

@@ -19,6 +19,7 @@ public class MyModel {
     private String did = "null";
     private String inverseDid = "null";
     private List<User> userList;
+    private int uid = -1;
 
     public MyModel() {
         this.linesList = new ArrayList<>();
@@ -204,5 +205,13 @@ public class MyModel {
 
     public synchronized List<Station> getStationList() {
         return stationList;
+    }
+
+    public synchronized int getUid() {
+        return uid;
+    }
+
+    public synchronized void setUid(int uid) {
+        this.uid = uid;
     }
 }

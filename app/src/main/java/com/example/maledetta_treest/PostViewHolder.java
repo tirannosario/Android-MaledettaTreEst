@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.widget.TextViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
@@ -41,10 +42,20 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void updateContent(Post post, AppDatabase db) {
+        int myUid = MyModel.getSingleton().getUid();
         final String emptyPlaceholder = "//";
+        // devo rimettere queste proprietà con i val di default, visto che la View viene riciclata
         userpic.setImageResource(R.drawable.placeholder_user_pic);
+        txtUsername.setTextColor(this.activity.getColor(R.color.black));
+        btnFollowing.setVisibility(View.VISIBLE);
 
-        txtUsername.setText(post.getAuthorName());
+        if(Integer.parseInt(post.getAuthor()) == myUid) {
+            txtUsername.setText("Tu");
+            txtUsername.setTextColor(this.activity.getColor(R.color.myPurple));
+        }
+        else
+            txtUsername.setText(post.getAuthorName());
+
         if (post.getDelay() != -1 && post.getDelay() >= 0 && post.getDelay() <= 3)
             txtDelay.setText(activity.getResources().getString(POST_DELAY[post.getDelay()]));
         else
@@ -61,35 +72,38 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         txtDate.setText(datetime.replace(datetime.substring(datetime.indexOf(".")), "")); //poichè non serve mostrare all'utente i millisecondi
 
         //gestione comportamento button follow/unfollow
-        InternetCommunication internetCommunication = new InternetCommunication(activity);
-        if (post.getFollowingAuthor().equals("true")) {
-            btnFollowing.setText(R.string.dont_follow_string);
-            btnFollowing.setBackgroundTintList(activity.getResources().getColorStateList(R.color.myOrange));
-            btnFollowing.setOnClickListener(view -> {
-                Log.d("Debug", "Smetto di seguire il DID " + post.getAuthor());
-                internetCommunication.unfollowUser(response -> activity.refreshPostLists(),
-                        error -> {
-                            Log.d("Debug", error.toString());
-                            InternetCommunication.showNetworkError(this.activity, false);
-                        },
-                        post.getAuthor());
-            });
-        } else {
-            btnFollowing.setText(R.string.follow_string);
-            btnFollowing.setOnClickListener(view -> {
-                Log.d("Debug", "Inizio a seguire il DID " + post.getAuthor());
-                internetCommunication.followUser(response -> activity.refreshPostLists(),
-                        error -> {
-                            Log.d("Debug", error.toString());
-                            InternetCommunication.showNetworkError(this.activity, false);
-                        },
-                        post.getAuthor());
+        if(Integer.parseInt(post.getAuthor()) == myUid)
+            btnFollowing.setVisibility(View.GONE);
+        else {
+            InternetCommunication internetCommunication = new InternetCommunication(activity);
+            if (post.getFollowingAuthor().equals("true")) {
+                btnFollowing.setText(R.string.dont_follow_string);
+                btnFollowing.setBackgroundTintList(activity.getResources().getColorStateList(R.color.myOrange));
+                btnFollowing.setOnClickListener(view -> {
+                    Log.d("Debug", "Smetto di seguire il DID " + post.getAuthor());
+                    internetCommunication.unfollowUser(response -> activity.refreshPostLists(),
+                            error -> {
+                                Log.d("Debug", error.toString());
+                                InternetCommunication.showNetworkError(this.activity, false);
+                            },
+                            post.getAuthor());
+                });
+            } else {
+                btnFollowing.setText(R.string.follow_string);
+                btnFollowing.setOnClickListener(view -> {
+                    Log.d("Debug", "Inizio a seguire il DID " + post.getAuthor());
+                    internetCommunication.followUser(response -> activity.refreshPostLists(),
+                            error -> {
+                                Log.d("Debug", error.toString());
+                                InternetCommunication.showNetworkError(this.activity, false);
+                            },
+                            post.getAuthor());
 
-            });
+                });
+            }
         }
 /*        Nel Model ho una lista aggiornata di User (senza upicture per motivi di spazio),
         che mi servono solo per sapere se ho la pversiona aggiornata senza dover interrogare il DB */
-//        final AppDatabase db = Room.databaseBuilder(activity, AppDatabase.class, "db_users").build();
         int myPicVersion = MyModel.getSingleton().getUserPicVersion(Integer.parseInt(post.getAuthor()));
         //non ho lo User nel Model o che ne ho una version vecchia
         if (myPicVersion == -1 || myPicVersion < post.getPversion()) {

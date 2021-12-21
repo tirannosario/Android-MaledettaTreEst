@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
         // controllo se è la prima volta che avvio l'app (ovvero se non ho il SID)
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         String sid = settings.getString("sid", "null");
-        if(sid.equals("null")) {
+        int uid = settings.getInt("uid", -1);
+        if(sid.equals("null")) { // se non ho il sid sicuramente non ho neanche l'uid
             //la prima volta che entro nell'app, mi registro al sistema e mostro la schermata delle Linee
             InternetCommunication internetCommunication = new InternetCommunication(this);
             internetCommunication.register(
@@ -51,6 +52,22 @@ public class MainActivity extends AppCompatActivity {
                             // lo salvo anche nel model, così da poterlo prendere in maniera semplice
                             MyModel.getSingleton().setSid(newSid);
                             Log.d("Debug", "nuovo sid: " + newSid);
+
+                            // la faccio qua dentro perchè ha bisogno del SID, quindi posso farlo solo dopo averlo ricevuto
+                            internetCommunication.getProfile(
+                                    responseUid -> {
+                                        try {
+                                            int newUid = ((JSONObject)responseUid).getInt("uid");
+                                            editor.putInt("uid", newUid);
+                                            editor.commit();
+                                            MyModel.getSingleton().setUid(newUid);
+                                            Log.d("Debug", "Il mio UID è : " + newUid);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    },
+                                    error -> Log.d("Debug", "Error: " + error.toString())
+                            );
                             // una volta che ho il SID, passo all'altra activity
                             Intent intent = new Intent(this, ShowLines.class);
                             startActivity(intent);
@@ -64,10 +81,12 @@ public class MainActivity extends AppCompatActivity {
                         InternetCommunication.showNetworkError(this, true);
                     }
             );
+
         }
         else{
             Log.d("Debug", "sid salvato: " + sid);
             MyModel.getSingleton().setSid(sid);
+            MyModel.getSingleton().setUid(uid);
             // controllo se ho il did salvato nel Model
             String modelDid = MyModel.getSingleton().getDid();
             if(modelDid.equals("null")) {
