@@ -102,40 +102,24 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
                 });
             }
         }
-/*        Nel Model ho una lista aggiornata di User (senza upicture per motivi di spazio),
-        che mi servono solo per sapere se ho la pversiona aggiornata senza dover interrogare il DB */
-        int myPicVersion = MyModel.getSingleton().getUserPicVersion(Integer.parseInt(post.getAuthor()));
-        //non ho lo User nel Model o che ne ho una version vecchia
-        if (myPicVersion == -1 || myPicVersion < post.getPversion()) {
+
+        if(post.getPversion() > 0){
+            Log.d("Debug", "Voglio la pic di " + post.getAuthor());
             new Thread(() -> {
-                User foundUser = db.userDAO().findByUid(Integer.parseInt(post.getAuthor()));
-                if (foundUser == null) {
-                    db.userDAO().insertUsers(new User(Integer.parseInt(post.getAuthor()), post.getAuthorName(), null, post.getPversion()));
-                    this.saveUPicFromInternetAndShow(db, post.getAuthor(), post.getAuthorName());
+                User foundUser = db.userDAO().findByUidAndPVersion(Integer.parseInt(post.getAuthor()), post.getPversion());
+                if(foundUser != null){
+                    Log.d("Debug", "Ho già la pic di " + post.getAuthor());
+                    userpic.post(() -> setUserPic(foundUser.getUpicture()));
                 }
                 else {
-                    if (foundUser.getPversion() < post.getPversion()) // ho lo user in DB ma non è aggiornato
-                        this.saveUPicFromInternetAndShow(db, post.getAuthor(), post.getAuthorName());
-                    else // ho lo user aggiornato nel DB (foundUser)
-                        userpic.post(() -> setUserPic(foundUser.getUpicture()));
+                    Log.d("Debug", "Non ho la pic aggiornata di " + post.getAuthor());
+                    saveUPicFromInternetAndShow(db, post.getAuthor(), post.getAuthorName());
                 }
-                // salvo lo User aggiornato anche nel Model (la upicture a null, per non riempire la memoria principale con le immagini -> le prenderemo ogni volta dal DB
-                if(myPicVersion==-1)
-                    MyModel.getSingleton().addUser(new User(Integer.parseInt(post.getAuthor()), post.getAuthorName(), null, post.getPversion()));
-                else
-                    MyModel.getSingleton().updateUserPicVersion(Integer.parseInt(post.getAuthor()), post.getPversion());
-            }
-            ).start();
-        }
-        else {
-            new Thread(()->{
-                User foundUser = db.userDAO().findByUid(Integer.parseInt(post.getAuthor()));
-                userpic.post(() -> setUserPic(foundUser.getUpicture()));
             }).start();
         }
     }
 
-        // gli viene passato anche il Nome, così da poter aggiornare completamente lo User (visto che la getUserPicture non lo ritorna
+        // gli viene passato anche il Nome, così da poter aggiornare/inserire completamente lo User
         private void saveUPicFromInternetAndShow(AppDatabase db, String userUid, String name){
             InternetCommunication internetCommunication = new InternetCommunication(activity);
             internetCommunication.getUserPicture(
@@ -145,7 +129,10 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
                             int uid = jsonObject.getInt("uid");
                             String picture = jsonObject.getString("picture");
                             int pversion = jsonObject.getInt("pversion");
-                            new Thread(()-> db.userDAO().updateUsers(new User(uid, name, picture, pversion))).start();
+                            new Thread(()-> {
+                                // se già esiste, farà la sua update
+                                db.userDAO().insertUsers(new User(uid, name, picture, pversion));
+                            }).start();
                             setUserPic(picture);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -174,7 +161,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
 //        Log.d("Debug", "Mosto l'immagine " + base64Text);
         byte[] bytes = Base64.decode(base64Text, Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        return bitmap; //TODO gestire errori presenti nel testo base64
+        return bitmap;
     }
 
 }

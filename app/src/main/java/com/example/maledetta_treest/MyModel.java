@@ -18,7 +18,6 @@ public class MyModel {
     private List<Post> followPostList; // verranno sovrascritti ad ogni cambio di bacheca (direzione)
     private String did = "null";
     private String inverseDid = "null";
-    private List<User> userList;
     private int uid = -1;
 
     public MyModel() {
@@ -26,7 +25,6 @@ public class MyModel {
         this.stationList = new ArrayList<>();
         this.allPostList = new ArrayList<>();
         this.followPostList = new ArrayList<>();
-        this.userList = new ArrayList<>();
     }
 
     public static synchronized MyModel getSingleton() {
@@ -182,25 +180,6 @@ public class MyModel {
 
     public synchronized void setInverseDid(String inverseDid) {
         this.inverseDid = inverseDid;
-    }
-
-    public synchronized void addUser(User u){
-        this.userList.add(u);
-    }
-
-    public synchronized void updateUserPicVersion(int uid, int pversion){
-        for(User u: this.userList){
-            if(u.getUid() == uid)
-                u.setPversion(pversion);
-        }
-    }
-
-    public synchronized int getUserPicVersion(int uid){
-        for(User u: this.userList){
-            if(u.getUid() == uid)
-                return u.getPversion();
-        }
-        return -1;
     }
 
     public synchronized List<Station> getStationList() {
