@@ -183,7 +183,7 @@ public class ProfileActivity extends AppCompatActivity {
     public Bitmap decodeBase64(String base64Text){
         byte[] bytes = Base64.decode(base64Text, Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        return bitmap; //TODO gestire errori presenti nel testo base64
+        return bitmap;
     }
 
     private void makeErrorToast(String msg){

@@ -24,33 +24,31 @@ public class InternetCommunication {
         queue = Volley.newRequestQueue(context);
     }
 
-    public void register(Response.Listener listener, Response.ErrorListener errorListener){
-        final JSONObject jsonBody = new JSONObject();
+    private void genericRequest(String endpoint, JSONObject param, Response.Listener listener, Response.ErrorListener errorListener){
         JsonObjectRequest request = new JsonObjectRequest(
-                baseUrl+"register.php",
-                jsonBody,
+                baseUrl + endpoint + ".php",
+                param,
                 listener,
                 errorListener
         );
-        Log.d("Debug", "Faccio la Register");
         queue.add(request);
+    }
+
+    public void register(Response.Listener listener, Response.ErrorListener errorListener){
+        final JSONObject jsonBody = new JSONObject();
+        genericRequest("register", jsonBody, listener, errorListener);
+        Log.d("Debug", "Faccio la Register");
     }
 
     public void getLines(Response.Listener listener, Response.ErrorListener errorListener){
         final JSONObject jsonBody = new JSONObject();
         try {
             jsonBody.put("sid", MyModel.getSingleton().getSid());
+            genericRequest("getLines", jsonBody, listener, errorListener);
+            Log.d("Debug", "Faccio la getLines");
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest request = new JsonObjectRequest(
-                baseUrl+"getLines.php",
-                jsonBody,
-                listener,
-                errorListener
-        );
-        Log.d("Debug", "Faccio la getLines");
-        queue.add(request);
     }
 
     public void getStations(Response.Listener listener, Response.ErrorListener errorListener, String did){
@@ -58,36 +56,23 @@ public class InternetCommunication {
         try {
             jsonBody.put("sid", MyModel.getSingleton().getSid());
             jsonBody.put("did", did);
+            genericRequest("getStations", jsonBody, listener, errorListener);
+            Log.d("Debug", "Faccio la getStations di " + did);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest request = new JsonObjectRequest(
-                baseUrl+"getStations.php",
-                jsonBody,
-                listener,
-                errorListener
-        );
-        Log.d("Debug", "Faccio la getStations di " + did);
-        queue.add(request);
     }
 
-    //TODO refactor di tutte le getQualcosa
     public void getPosts(Response.Listener listener, Response.ErrorListener errorListener, String did){
         final JSONObject jsonBody = new JSONObject();
         try {
             jsonBody.put("sid", MyModel.getSingleton().getSid());
             jsonBody.put("did", did);
+            genericRequest("getPosts", jsonBody, listener, errorListener);
+            Log.d("Debug", "Faccio la getPosts di " + did);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest request = new JsonObjectRequest(
-                baseUrl+"getPosts.php",
-                jsonBody,
-                listener,
-                errorListener
-        );
-        Log.d("Debug", "Faccio la getPosts di " + did);
-        queue.add(request);
     }
 
     public void followUser(Response.Listener listener, Response.ErrorListener errorListener, String uid){
@@ -95,17 +80,11 @@ public class InternetCommunication {
         try {
             jsonBody.put("sid", MyModel.getSingleton().getSid());
             jsonBody.put("uid", uid);
+            genericRequest("follow", jsonBody, listener, errorListener);
+            Log.d("Debug", "Faccio la follow di " + uid);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest request = new JsonObjectRequest(
-                baseUrl+"follow.php",
-                jsonBody,
-                listener,
-                errorListener
-        );
-        Log.d("Debug", "Faccio la follow di " + uid);
-        queue.add(request);
     }
 
     public void unfollowUser(Response.Listener listener, Response.ErrorListener errorListener, String uid){
@@ -113,17 +92,11 @@ public class InternetCommunication {
         try {
             jsonBody.put("sid", MyModel.getSingleton().getSid());
             jsonBody.put("uid", uid);
+            genericRequest("unfollow", jsonBody, listener, errorListener);
+            Log.d("Debug", "Faccio la unfollow di " + uid);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest request = new JsonObjectRequest(
-                baseUrl+"unfollow.php",
-                jsonBody,
-                listener,
-                errorListener
-        );
-        Log.d("Debug", "Faccio la unfollow di " + uid);
-        queue.add(request);
     }
 
     public void createPost(Response.Listener listener, Response.ErrorListener errorListener, String did, int delay, int status, String comment){
@@ -137,34 +110,22 @@ public class InternetCommunication {
                 jsonBody.put("status", status);
             if(!comment.equals(""))
                 jsonBody.put("comment", comment);
+            genericRequest("addPost", jsonBody, listener, errorListener);
+            Log.d("Debug", "Creo il post su " + did + " {" + delay + ", " + status + ", " + comment + "}");
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest request = new JsonObjectRequest(
-                baseUrl+"addPost.php",
-                jsonBody,
-                listener,
-                errorListener
-        );
-        Log.d("Debug", "Creo il post su " + did + " {" + delay + ", " + status + ", " + comment + "}");
-        queue.add(request);
     }
 
     public void getProfile(Response.Listener listener, Response.ErrorListener errorListener){
         final JSONObject jsonBody = new JSONObject();
         try {
             jsonBody.put("sid", MyModel.getSingleton().getSid());
+            genericRequest("getProfile", jsonBody, listener, errorListener);
+            Log.d("Debug", "Faccio la getProfile");
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest request = new JsonObjectRequest(
-                baseUrl+"getProfile.php",
-                jsonBody,
-                listener,
-                errorListener
-        );
-        Log.d("Debug", "Faccio la getProfile");
-        queue.add(request);
     }
 
     public void setProfile(Response.Listener listener, Response.ErrorListener errorListener, String name, String picture){
@@ -175,17 +136,11 @@ public class InternetCommunication {
                 jsonBody.put("name", name);
             if(!picture.equals(""))
                 jsonBody.put("picture", picture);
+            genericRequest("setProfile", jsonBody, listener, errorListener);
+            Log.d("Debug", "Faccio la setProfile");
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest request = new JsonObjectRequest(
-                baseUrl+"setProfile.php",
-                jsonBody,
-                listener,
-                errorListener
-        );
-        Log.d("Debug", "Faccio la setProfile");
-        queue.add(request);
     }
 
     public void getUserPicture(Response.Listener listener, Response.ErrorListener errorListener, String uid){
@@ -193,17 +148,11 @@ public class InternetCommunication {
         try {
             jsonBody.put("sid", MyModel.getSingleton().getSid());
             jsonBody.put("uid", uid);
+            genericRequest("getUserPicture", jsonBody, listener, errorListener);
+            Log.d("Debug", "Faccio la getUserPicture di " + uid);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest request = new JsonObjectRequest(
-                baseUrl+"getUserPicture.php",
-                jsonBody,
-                listener,
-                errorListener
-        );
-        Log.d("Debug", "Faccio la getUserPicture di " + uid);
-        queue.add(request);
     }
 
     // per mostrare Alert di errore di Network

@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar.hide();
         final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, "db_users").build();
 
+        //TODO prendere sid/uid dal Model prima
         // controllo se è la prima volta che avvio l'app (ovvero se non ho il SID)
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         String sid = settings.getString("sid", "null");
