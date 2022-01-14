@@ -132,4 +132,16 @@ public class CreatePost extends AppCompatActivity {
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
     }
+
+    @Override
+    protected void onStop() {
+        Log.d("Debug", "Stop");
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d("Debug", "Destroy");
+        super.onDestroy();
+    }
 }
