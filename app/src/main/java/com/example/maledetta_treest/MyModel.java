@@ -69,12 +69,8 @@ public class MyModel {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-/*        for (Station s: this.stationList) {
-            Log.d("Debug", "Station: " + s.getSname() + ", " + s.getLat() + ", " + s.getLon());
-        }*/
     }
 
-    //TODO refactor di tutte le init from JSON
     public synchronized void initPostsFromJSON(JSONObject posts){
         try {
             this.allPostList = new ArrayList<>();
@@ -82,7 +78,6 @@ public class MyModel {
             JSONArray postsJSON = posts.getJSONArray("posts");
             for(int i=0; i<postsJSON.length(); i++){
                 JSONObject post = (JSONObject) postsJSON.get(i);
-//                Log.d("Debug", "post{"+i+"}:" + post);
                 Post p = new Post(
                         // con i metodi optX riesco a definire un valore nel caso quell'attributo non è presente
                         post.optInt("delay", -1),
@@ -101,25 +96,6 @@ public class MyModel {
             }
         } catch (JSONException e) {
             e.printStackTrace();
-        }
-    }
-
-    public synchronized void addLinesFromJSON(JSONObject lines){
-        try {
-            JSONArray linesJSON = lines.getJSONArray("lines");
-            for(int i=0; i<linesJSON.length(); i++){
-                JSONObject line = (JSONObject) linesJSON.get(i);
-                JSONObject terminus1 = line.getJSONObject("terminus1");
-                JSONObject terminus2 = line.getJSONObject("terminus2");
-                this.linesList.add(new Line(
-                        terminus1.getString("sname"),
-                        terminus2.getString("sname"),
-                        terminus1.getString("did"),
-                        terminus2.getString("did")));
-
-            }
-        } catch (JSONException e) {
-            e.getStackTrace();
         }
     }
 
