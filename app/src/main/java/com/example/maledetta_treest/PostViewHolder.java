@@ -48,6 +48,10 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         userpic.setImageResource(R.drawable.placeholder_user_pic);
         txtUsername.setTextColor(this.activity.getColor(R.color.black));
         btnFollowing.setVisibility(View.VISIBLE);
+        btnFollowing.setBackgroundTintList(activity.getResources().getColorStateList(R.color.myPurple));
+        txtDelay.setTextColor(this.activity.getColor(R.color.myBlueBlack));
+        txtState.setTextColor(this.activity.getColor(R.color.myBlueBlack));
+        txtComment.setTextColor(this.activity.getColor(R.color.myBlueBlack));
 
         if(Integer.parseInt(post.getAuthor()) == myUid) {
             txtUsername.setText("Tu");
@@ -77,6 +81,9 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         else {
             InternetCommunication internetCommunication = new InternetCommunication(activity);
             if (post.getFollowingAuthor().equals("true")) {
+                txtDelay.setTextColor(this.activity.getColor(R.color.myOrange));
+                txtState.setTextColor(this.activity.getColor(R.color.myOrange));
+                txtComment.setTextColor(this.activity.getColor(R.color.myOrange));
                 btnFollowing.setText(R.string.dont_follow_string);
                 btnFollowing.setBackgroundTintList(activity.getResources().getColorStateList(R.color.myOrange));
                 btnFollowing.setOnClickListener(view -> {

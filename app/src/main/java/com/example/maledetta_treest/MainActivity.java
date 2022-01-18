@@ -23,7 +23,6 @@ import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "SharedPreferences";
-    private PostsFollowAdapter postsFollowAdapter;
     private PostsAllAdapter postsAllAdapter;
     private String did;
 
@@ -101,12 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 this.finish();
             }
-            else{
-                RecyclerView recyclerViewFollow = findViewById(R.id.recycleViewPostFollow);
-                recyclerViewFollow.setLayoutManager(new LinearLayoutManager(this));
-                postsFollowAdapter = new PostsFollowAdapter(this, db);
-                recyclerViewFollow.setAdapter(postsFollowAdapter);
-
+            else {
                 RecyclerView recyclerViewAll = findViewById(R.id.recycleViewPostAll);
                 recyclerViewAll.setLayoutManager(new LinearLayoutManager(this));
                 postsAllAdapter = new PostsAllAdapter(this, db);
@@ -135,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
                 internetCommunication.getPosts(
                         response -> {
                             MyModel.getSingleton().initPostsFromJSON((JSONObject) response);
-                            postsFollowAdapter.notifyDataSetChanged();
                             postsAllAdapter.notifyDataSetChanged();
                             p.dismiss();
                         },
@@ -156,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
         internetCommunication.getPosts(
                 response -> {
                     MyModel.getSingleton().initPostsFromJSON((JSONObject) response);
-                    postsFollowAdapter.notifyDataSetChanged();
                     postsAllAdapter.notifyDataSetChanged();
                     p.dismiss();
                 },

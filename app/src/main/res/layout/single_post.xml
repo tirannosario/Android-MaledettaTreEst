@@ -106,7 +106,7 @@
             android:text="treni soppressi"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@color/myOrange"
+            android:textColor="@color/myBlueBlack"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_static_late_post" />
@@ -120,7 +120,7 @@
             android:text="gravi problemi per i passeggeri"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@color/myOrange"
+            android:textColor="@color/myBlueBlack"
             android:textSize="16sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/txtLatePost"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -136,7 +136,7 @@
             android:text='"Questo è un testo veramente lungo per capire quanto avanti si possano spingere gli utenti a scrivere commenti"'
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@color/myOrange"
+            android:textColor="@color/myBlueBlack"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

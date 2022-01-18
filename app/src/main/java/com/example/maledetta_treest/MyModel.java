@@ -15,7 +15,6 @@ public class MyModel {
     private String sid;
     private List<Station> stationList; // verranno sovrascritte ad ogni cambio di direzione
     private List<Post> allPostList; // verranno sovrascritti ad ogni cambio di bacheca (direzione)
-    private List<Post> followPostList; // verranno sovrascritti ad ogni cambio di bacheca (direzione)
     private String did = "null";
     private String inverseDid = "null";
     private int uid = -1;
@@ -24,7 +23,6 @@ public class MyModel {
         this.linesList = new ArrayList<>();
         this.stationList = new ArrayList<>();
         this.allPostList = new ArrayList<>();
-        this.followPostList = new ArrayList<>();
     }
 
     public static synchronized MyModel getSingleton() {
@@ -74,7 +72,6 @@ public class MyModel {
     public synchronized void initPostsFromJSON(JSONObject posts){
         try {
             this.allPostList = new ArrayList<>();
-            this.followPostList = new ArrayList<>();
             JSONArray postsJSON = posts.getJSONArray("posts");
             for(int i=0; i<postsJSON.length(); i++){
                 JSONObject post = (JSONObject) postsJSON.get(i);
@@ -89,10 +86,7 @@ public class MyModel {
                         post.getString("author"),
                         Integer.parseInt(post.getString("pversion"))
                 );
-                if(p.getFollowingAuthor().equals("true"))
-                    this.followPostList.add(p);
-                else
-                    this.allPostList.add(p);
+                this.allPostList.add(p);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -124,14 +118,6 @@ public class MyModel {
         if(this.stationList.size() >= 2)
             return this.stationList.get(this.stationList.size()-1).getSname();
         return "";
-    }
-
-    public synchronized Post getFollowPost(int i){
-        return this.followPostList.get(i);
-    }
-
-    public synchronized int getFollowPostsSize(){
-        return this.followPostList.size();
     }
 
     public synchronized Post getAllPost(int i){

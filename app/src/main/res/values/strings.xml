@@ -6,7 +6,7 @@
     <string name="txt_info_direction">DETTAGLI TRATTA</string>
     <string name="txt_btn_change_pic">Cambia foto</string>
     <string name="text_label_from_follow_users">Da Utenti Seguiti</string>
-    <string name="text_labal_from_all_users">Da Tutti</string>
+    <string name="text_labal_from_all_users">Post</string>
     <string name="text_label_choose_direction">Scegli una Direzione</string>
     <string name="dont_follow_string">Non Seguire</string>
     <string name="follow_string">Segui</string>
