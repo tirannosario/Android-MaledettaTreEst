@@ -150,9 +150,11 @@ public class ProfileActivity extends AppCompatActivity {
     {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_PIC_REQUEST && resultCode == RESULT_OK) {
-            newPic = toBase64(data); // salvo la nuova img base64
-            if(!newPic.equals(""))
+            String changedPic = toBase64(data); // salvo la nuova img base64
+            if(!changedPic.equals("")){
+                newPic = changedPic;
                 biopic.setImageBitmap(decodeBase64(newPic)); // mostra la nuova img
+            }
         }
     }
 
