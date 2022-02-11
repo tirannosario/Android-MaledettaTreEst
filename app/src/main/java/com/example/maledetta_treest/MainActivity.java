@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("Debug", "Error: " + error.toString());
                     InternetCommunication.showNetworkError(this, true);
                 },
-                did // non sarà mai Null poichè questo metodo viene richiamato solo da btn dentro la bacheca (quindi abbiamo già un DID)
+                did
         );
     }
 

@@ -155,7 +155,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         try {
             if (!img.equals("null")) {
                 Bitmap bitmap = decodeBase64(img);
-                if(bitmap != null) // nel caso in cui l'utente abbia una pic codificata male
+                if(bitmap != null) // nel caso in cui l'utente non abbia una pic codificata male
                     userpic.setImageBitmap(bitmap);
             }
         }

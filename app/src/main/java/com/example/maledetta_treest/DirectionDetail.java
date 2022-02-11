@@ -50,11 +50,11 @@ public class DirectionDetail extends AppCompatActivity {
                 requestCurrentLocation();
 
             } else {
-                // Android chiederà all'utente altre due volte i permessi, dopo di che sarà necessario andare sulle impotazioni
+                // Android chiederà all'utente altre due volte i permessi, dopo di che sarà necessario andare sulle impostazioni
                 Log.d("Debug", "Ancora non da i permessi!");
                 Toast toast = Toast.makeText(this, "La posizione è necessaria per offrire un servizio migliore. Se vuoi fornirla vai su:\n Impostazioni -> Posizione -> Maledetta TreEst", Toast.LENGTH_LONG);
                 toast.show();
-                // comunque mostro lo stesso la mappa
+                // comunque mostro lo stesso la mappa, senza la mia posizione
                 MapsFragment mapFragment = new MapsFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerViewMaps, mapFragment).commit();
 
