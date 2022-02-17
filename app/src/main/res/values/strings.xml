@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Maledetta_TreEst</string>
+    <string name="back_text">Scegli altre Bacheche</string>
+    <string name="text_from">Partenza</string>
+    <string name="text_to">Arrivo</string>
+    <string name="txt_info_direction">DETTAGLI TRATTA</string>
+    <string name="txt_btn_change_pic">Cambia foto</string>
+    <string name="text_label_from_follow_users">Da Utenti Seguiti</string>
+    <string name="text_labal_from_all_users">Post</string>
+    <string name="text_label_choose_direction">Scegli una Direzione</string>
+    <string name="dont_follow_string">Non Seguire</string>
+    <string name="follow_string">Segui</string>
+    <string name="empty_thing"> </string>
+    <string name="delay_0_string">In Orario</string>
+    <string name="delay_1_string">Di pochi minuti</string>
+    <string name="delay_2_string">Oltre 15 minuti</string>
+    <string name="delay_3_string">Treni Soppressi</string>
+    <string name="status_0_string">Situazione ideale</string>
+    <string name="status_1_string">Accettabile</string>
+    <string name="status_2_string">Gravi problemi per i passeggeri</string>
+    <string name="back_text_create">Indietro</string>
+    <string name="btnDirectionDetailBack_text">Torna Indietro</string>
+    <string name="extended_fab_label">Torna Indietro</string>
+</resources>
